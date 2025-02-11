@@ -61,9 +61,9 @@ public class OmaMoottori extends Moottori{
 
 	@Override
 	protected void tulokset() {
-		System.out.println("Simulointi päättyi kello " + Kello.getInstance().getAika());
-		System.out.println("Tulokset ... puuttuvat vielä");
+		System.out.println("Metro simulaattori päättyi kello " + Kello.getInstance().getAika());
+		System.out.println("Asiakkaiden määrä: " + Asiakas.getI());
+		System.out.println("Asiakkaita palveltu: " + Asiakas.getcompletedi());
+		System.out.println("Keskimääräinen palvelu aika: " + (double)(Asiakas.getSum() / Asiakas.getcompletedi()));
 	}
-
-	
 }
