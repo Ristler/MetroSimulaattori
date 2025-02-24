@@ -22,8 +22,7 @@ public abstract class Moottori {
 	public void setSimulointiaika(double aika) {
 		simulointiaika = aika;
 	}
-	
-	
+
 	public void aja(){
 		alustukset(); // luodaan mm. ensimmäinen tapahtuma
 		while (simuloidaan()){
@@ -44,7 +43,11 @@ public abstract class Moottori {
 	
 	private void suoritaBTapahtumat(){
 		while (tapahtumalista.getSeuraavanAika() == kello.getAika()){
+
+
 			suoritaTapahtuma(tapahtumalista.poista());
+
+
 		}
 	}
 

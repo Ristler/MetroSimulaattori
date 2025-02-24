@@ -60,6 +60,7 @@ public class OmaMoottori extends Moottori{
 		}
 	}
 
+
 	@Override
 	protected void tulokset() {
 		System.out.println("Metro simulaattori päättyi kello " + Kello.getInstance().getAika());
