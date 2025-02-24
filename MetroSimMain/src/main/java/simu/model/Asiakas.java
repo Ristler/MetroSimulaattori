@@ -11,6 +11,7 @@ public class Asiakas {
 	private double poistumisaika;
 	private int id;
 	private static int i = 1;
+	private static int completedi = 0;
 	private static long sum = 0;
 	
 	public Asiakas(){
@@ -38,12 +39,25 @@ public class Asiakas {
 	public void setSaapumisaika(double saapumisaika) {
 		this.saapumisaika = saapumisaika;
 	}
+
+	static public long getSum() {
+		return sum;
+	}
+
+	static public int getI() {
+		return i;
+	}
+
+	static public int getcompletedi() {
+		return completedi;
+	}
 	
 	public void raportti(){
 		Trace.out(Trace.Level.INFO, "Asiakas "+id+ " saapui:" +saapumisaika);
 		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " poistui:" +poistumisaika);
 		Trace.out(Trace.Level.INFO,"Asiakas "+id+ " viipyi:" +(poistumisaika-saapumisaika));
 		sum += (poistumisaika-saapumisaika);
+		completedi++;
 		double keskiarvo = sum/id;
 		System.out.println("Asiakkaiden läpimenoaikojen keskiarvo "+ keskiarvo);
 	}
