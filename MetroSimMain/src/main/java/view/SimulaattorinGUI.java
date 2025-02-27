@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import simu.framework.Trace;
@@ -172,6 +173,16 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     @Override
     public IVisualisointi getVisualisointi() {
         return naytto;
+    }
+
+
+    public void Kaynnista(MouseEvent mouseEvent) {
+    }
+
+    public void Hidasta(MouseEvent mouseEvent) {
+    }
+
+    public void Nopeuta(MouseEvent mouseEvent) {
     }
 }
 
