@@ -43,9 +43,19 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private Button hidastaButton;
     private Button nopeutaButton;
 
+    @FXML
+    private Canvas Lista;
+
+    @FXML
+    private TextField simviivefield;
+
+    @FXML
+    private TextField simaikafield;
+
+    @FXML
+    private Label kokonaisaika;
+
     private IVisualisointi naytto;
-
-
 
     @Override
     public void init() {
@@ -127,15 +137,22 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             grid.add(nopeutaButton, 0, 4);   // sarake, rivi
             grid.add(hidastaButton, 1, 4);   // sarake, rivi
 
-            naytto = new Visualisointi(400, 200);
-
             // TÃ¤ytetÃ¤Ã¤n boxi:
-            hBox.getChildren().addAll(grid, (Canvas) naytto);
+            //hBox.getChildren().addAll(grid, (Canvas) naytto);
 
             //Scene scene = new Scene(hBox);
 
+            if (Lista == null) {
+                System.out.println("Canvas is null");
+            } else {
+                System.out.println("Canvas is not null");
+            }
+
+            //naytto = new Visualisointi(Lista);
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/SimulatorVisual.fxml"));
             Parent root = fxmlLoader.load();
+
             primaryStage.setScene(new Scene(root));
             primaryStage.show();
 
@@ -155,18 +172,18 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
     @Override
     public double getAika() {
-        return Double.parseDouble(aika.getText());
+        return Double.parseDouble(simaikafield.getText());
     }
 
     @Override
     public long getViive() {
-        return Long.parseLong(viive.getText());
+        return Long.parseLong(simviivefield.getText());
     }
 
     @Override
     public void setLoppuaika(double aika) {
         DecimalFormat formatter = new DecimalFormat("#0.00");
-        this.tulos.setText(formatter.format(aika));
+        kokonaisaika.setText(formatter.format(aika));
     }
 
 
@@ -177,12 +194,16 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
 
     public void Kaynnista(MouseEvent mouseEvent) {
+        kontrolleri.kaynnistaSimulointi();
+        kaynnistaButton.setDisable(true);
     }
 
     public void Hidasta(MouseEvent mouseEvent) {
+        kontrolleri.hidasta();
     }
 
     public void Nopeuta(MouseEvent mouseEvent) {
+        kontrolleri.nopeuta();
     }
 }
 
