@@ -18,8 +18,12 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.*;
+import javafx.scene.control.TextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import java.util.Locale;
 
-
+import javafx.fxml.FXMLLoader;
 
 public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
@@ -41,6 +45,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     private IVisualisointi naytto;
 
 
+
     @Override
     public void init() {
 
@@ -50,7 +55,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception {
         // Käyttöliittymän rakentaminen
         try {
 
@@ -67,6 +72,7 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
 
             kaynnistaButton = new Button();
             kaynnistaButton.setText("Käynnistä simulointi");
+
             kaynnistaButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -125,9 +131,17 @@ public class SimulaattorinGUI extends Application implements ISimulaattorinUI {
             // TÃ¤ytetÃ¤Ã¤n boxi:
             hBox.getChildren().addAll(grid, (Canvas) naytto);
 
-            Scene scene = new Scene(hBox);
-            primaryStage.setScene(scene);
+            //Scene scene = new Scene(hBox);
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/SimulatorVisual.fxml"));
+            Parent root = fxmlLoader.load();
+            primaryStage.setScene(new Scene(root));
             primaryStage.show();
+
+            //primaryStage.setScene(scene);
+            //primaryStage.show();
+
+
 
 
         } catch (Exception e) {
