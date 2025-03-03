@@ -17,15 +17,14 @@ import java.text.DecimalFormat;
 public class SimulaattorinGUI extends Application {
     private IKontrolleriForV kontrolleri;
     private Visualisointi naytto;
-    private Kontrolleri controller = new Kontrolleri();
+    private Kontrolleri controller;
 
 
     @Override
     public void start(Stage stage) throws Exception {
-
+        controller = new Kontrolleri();
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/SimulatorVisual.fxml"));
-        //Kontrolleri controller = new Kontrolleri();
         // Pass the UI reference
         //fxmlLoader.setController(controller);
         Parent root = fxmlLoader.load();

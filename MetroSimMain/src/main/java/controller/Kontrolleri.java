@@ -30,16 +30,12 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	private IMoottori moottori;
 
-
 	private ISimulaattorinUI ui;
-
 
 	private IVisualisointi naytto;
 	ISimulaattorinUI x;
 
 	public Kontrolleri() {
-
-
 
 	}
 
@@ -50,7 +46,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(getAika());
 		naytto = new Visualisointi(Lista);
-		moottori.setViive(getAika());
+		moottori.setViive(getViive());
 		//ui.getVisualisointi().tyhjennaNaytto();
 		getVisualisointi(x);
 		((Thread) moottori).start();
@@ -110,7 +106,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	public void visualisoiAsiakas() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				ui.getVisualisointi().uusiAsiakas();
+				naytto.uusiAsiakas();
 			}
 		});
 	}
