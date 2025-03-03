@@ -74,18 +74,15 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		return Long.parseLong(simviivefield.getText());
 	}
 
+	@Override
 	public void setLoppuaika(double aika) {
 		DecimalFormat formatter = new DecimalFormat("#0.00");
-		kokonaisaika.setText(formatter.format(aika));
+		Platform.runLater(() -> kokonaisaika.setText(formatter.format(aika)));
 	}
-
 
 	public ISimulaattorinUI getVisualisointi(ISimulaattorinUI naytto) {
 		return naytto;
 	}
-
-
-
 
 	public void Kaynnista(MouseEvent mouseEvent) {
 		kaynnistaSimulointi();
@@ -98,7 +95,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	@Override
 	public void naytaLoppuaika(double aika) {
-		Platform.runLater(() -> ui.setLoppuaika(aika));
+		//Platform.runLater(() -> ui.setLoppuaika(aika));
 	}
 
 

@@ -59,6 +59,10 @@ public class KontrolleriBackup implements IKontrolleriForM, IKontrolleriForV{   
 		});
 	}
 
+	@Override
+	public void setLoppuaika(double aika) {
+		// TODO Auto-generated method stub
+	}
 
 
 }
