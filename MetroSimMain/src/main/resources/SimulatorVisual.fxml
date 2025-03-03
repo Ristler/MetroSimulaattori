@@ -20,6 +20,9 @@
          </padding>
          <children>
             <Canvas fx:id="Lista" height="415.0" width="200.0" />
+            <Canvas fx:id="Lista1" height="415.0" layoutX="415.0" layoutY="24.0" width="200.0" />
+            <Canvas fx:id="Lista11" height="415.0" layoutX="525.0" layoutY="24.0" width="200.0" />
+            <Canvas fx:id="Lista111" height="415.0" layoutX="635.0" layoutY="24.0" width="200.0" />
          </children>
       </HBox>
    </center>

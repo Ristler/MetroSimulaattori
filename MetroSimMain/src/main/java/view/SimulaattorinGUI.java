@@ -34,10 +34,7 @@ public class SimulaattorinGUI extends Application {
     }
 
     public void init() {
-
-
         Trace.setTraceLevel(Trace.Level.INFO);
-
     }
 
     public void handle(ActionEvent event) {
