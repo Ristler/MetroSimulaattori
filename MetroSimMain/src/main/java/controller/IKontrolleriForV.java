@@ -1,5 +1,9 @@
 package controller;
 
+import simu.model.OmaMoottori;
+import view.ISimulaattorinUI;
+import view.Visualisointi;
+
 public interface IKontrolleriForV {
 
     // Rajapinta, joka tarjotaan  käyttöliittymälle:
@@ -7,4 +11,5 @@ public interface IKontrolleriForV {
     public void kaynnistaSimulointi();
     public void nopeuta();
     public void hidasta();
+
 }
