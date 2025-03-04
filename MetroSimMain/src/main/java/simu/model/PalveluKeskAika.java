@@ -2,42 +2,54 @@ package simu.model;
 
 import java.util.HashMap;
 
+import simu.framework.Kello;
+
 public class PalveluKeskAika {
-    private HashMap<Integer, Long> lippu_aikalista = new HashMap<Integer, Long>();
-    private HashMap<Integer, Long> lait_aikalista = new HashMap<Integer, Long>();
-    private static double lippuKeski = 0;
-    private static double laituriKeski = 0;
+    private HashMap<Integer, Double> lippu_saapumislista = new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> lait_saapumislista = new HashMap<Integer, Double>();
 
-    // Metodi tallentaa asiakkaan saapumisajan lippu_aikalistaan
-    public void saapLt(int id, long aika) {
-        lippu_aikalista.put(id, aika);
+    private static int lippuPalveltu = 0;       // Palveltujen asiakkaiden määrä
+    private static int laitPalveltu = 0;        
+
+    private static double lippuKeskiaika = 0;   // Keskimääräinen käsittelyaika
+    private static double laituriKeskiaika = 0;
+
+    // Metodi tallentaa asiakkaan saapumisajan ja id lippu_aikalistaan
+    public void setLippu(int id) {
+        Double saapumisaika = Kello.getInstance().getAika();
+        lippu_saapumislista.put(id, saapumisaika);
     }
 
-    // Metodi tallentaa asiakkaan saapumisajan lait_aikalistaan
-    public void saapLait(int id, long aika) {
-        lait_aikalista.put(id, aika);
+    // Metodi tallentaa asiakkaan saapumisajan ja id lait_aikalistaan
+    public void setLaituri(int id) {
+        Double saapumisaika = Kello.getInstance().getAika();
+        lait_saapumislista.put(id, saapumisaika);
     }
 
-    // Metodi poistaa asiakkaan saapumisajan ja laskee keskiarvon
-    public void poistLt(int id, Long aika) {
-        Long saapumisAika = lippu_aikalista.get(id);
-        lippuKeski += aika - saapumisaika;
+    // Metodi poimii asiakkaan saapumisajan ja laskee keskiarvon
+    public void getLippu(int id) {
+        Double saapumisaika = lippu_saapumislista.get(id);
+        Double poistumisaika = Kello.getInstance().getAika();
+        lippuKeskiaika += poistumisaika - saapumisaika;
+        lippuPalveltu++;
     }
 
-    // Metodi poistaa asiakkaan saapumisajan ja laskee keskiarvon
-    public void poistLait(int id, Long aika) {
-        Long saapumisAika = lait_aikalista.get(id);
-        laituriKeski += aika - saapumisaika;
+    // Metodi poimii asiakkaan saapumisajan ja laskee keskiarvon
+    public void getLaituri(int id) {
+        Double saapumisaika = lait_saapumislista.get(id);
+        Double poistumisaika = Kello.getInstance().getAika();
+        laituriKeskiaika += poistumisaika - saapumisaika;
+        laitPalveltu++;
     }
 
     // Palauttaa lipunmyyntipisteen keskimääräisen käsittelyajan
     public double getLippuKeskiaika() {
-        return lippuKeski / lippu_aikalista.size();
+        return lippuKeskiaika / lippuPalveltu;
     }
 
     // Palauttaa laiturin keskimääräisen käsittelyajan
-    public double getLtKeski(){
-        return laituriKeski / lait_aikalista.size();
+    public double getLaituriKeskiaika(){
+        return laituriKeskiaika / laitPalveltu;
     }
 }
 
