@@ -22,38 +22,37 @@ public class Palvelupiste {
 		this.tapahtumalista = tapahtumalista;
 		this.generator = generator;
 		this.skeduloitavanTapahtumanTyyppi = tyyppi;
+
+		System.out.println(tyyppi.name());
 				
 	}
-
 
 	public void lisaaJonoon(Asiakas a){   // Jonon 1. asiakas aina palvelussa
 		jono.add(a);
 		
 	}
 
-
 	public Asiakas otaJonosta(){  // Poistetaan palvelussa ollut
 		varattu = false;
 		return jono.poll();
 	}
 
-
 	public void aloitaPalvelu(){  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 		
-		Trace.out(Trace.Level.INFO, "Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
+		Trace.out(Trace.Level.INFO, this.skeduloitavanTapahtumanTyyppi.name() + " Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
 		
 		varattu = true;
 		double palveluaika = generator.sample();
 		tapahtumalista.lisaa(new Tapahtuma(skeduloitavanTapahtumanTyyppi,Kello.getInstance().getAika()+palveluaika));
 	}
 
-
+	public int jononKoko(){
+		return jono.size();
+	}
 
 	public boolean onVarattu(){
 		return varattu;
 	}
-
-
 
 	public boolean onJonossa(){
 		return jono.size() != 0;

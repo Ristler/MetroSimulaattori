@@ -5,6 +5,8 @@ import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
 
+import java.util.ArrayList;
+
 public class OmaMoottori extends Moottori{
 	
 	private Saapumisprosessi saapumisprosessi;
@@ -16,13 +18,14 @@ public class OmaMoottori extends Moottori{
 
 		super(kontrolleri);
 
-		palvelupisteet = new Palvelupiste[3];
+		palvelupisteet = new Palvelupiste[4];
 
-		palvelupisteet[0]=new Palvelupiste(new Normal(10,6), tapahtumalista, TapahtumanTyyppi.LT);
-		palvelupisteet[1]=new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.LAIT);
-		palvelupisteet[2]=new Palvelupiste(new Normal(5,3), tapahtumalista, TapahtumanTyyppi.METRO);
+		palvelupisteet[0] = new Palvelupiste(new Normal(4,2), tapahtumalista, TapahtumanTyyppi.LT);
+		palvelupisteet[1] = new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.LAIT);
+		palvelupisteet[2] = new Palvelupiste(new Normal(100,20), tapahtumalista, TapahtumanTyyppi.METRO);
+		palvelupisteet[3] = new Palvelupiste(new Normal(20,10), tapahtumalista, TapahtumanTyyppi.POISTU);
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(15,5), tapahtumalista, TapahtumanTyyppi.SAAP);
+		saapumisprosessi = new Saapumisprosessi(new Negexp(3,1), tapahtumalista, TapahtumanTyyppi.SAAP);
 
 	}
 
@@ -37,7 +40,6 @@ public class OmaMoottori extends Moottori{
 
 		Asiakas a;
 		switch ((TapahtumanTyyppi)t.getTyyppi()){
-
 			case SAAP: palvelupisteet[0].lisaaJonoon(new Asiakas());
 				       saapumisprosessi.generoiSeuraava();
 					   kontrolleri.visualisoiAsiakas(); // UUSI
@@ -49,9 +51,39 @@ public class OmaMoottori extends Moottori{
 				   	   palvelupisteet[2].lisaaJonoon(a);
 				break;
 			case METRO:
-				       a = (Asiakas)palvelupisteet[2].otaJonosta();
-					   a.setPoistumisaika(Kello.getInstance().getAika());
-			           a.raportti();
+				int jononkoko;
+
+				if (palvelupisteet[2].jononKoko() < 5) {
+					jononkoko = palvelupisteet[2].jononKoko();
+				} else {
+					jononkoko = 5;
+				}
+
+				for (int i = 0; i < jononkoko; i++) {
+					a = (Asiakas)palvelupisteet[2].otaJonosta();
+					palvelupisteet[3].lisaaJonoon(a);
+				}
+
+				jononkoko = 0;
+				break;
+			case POISTU:
+				System.out.println("Poistu");
+
+				int poistokoko;
+
+				if (palvelupisteet[3].jononKoko() < 5) {
+					poistokoko = palvelupisteet[3].jononKoko();
+				} else {
+					poistokoko = 5;
+				}
+
+				for (int i = 0; i < poistokoko; i++) {
+					a = (Asiakas)palvelupisteet[3].otaJonosta();
+					a.setPoistumisaika(Kello.getInstance().getAika());
+					a.raportti();
+				}
+
+				poistokoko = 0;
 		}
 	}
 
@@ -75,5 +107,16 @@ public class OmaMoottori extends Moottori{
 		} else {
 			System.out.println("Keskimääräinen palvelu aika: " + (double)(Asiakas.getSum() / Asiakas.getcompletedi()));
 		}
+	}
+
+	@Override
+	public ArrayList<Integer> getJono() {
+		return new ArrayList<Integer>() {{
+			add(palvelupisteet[0].jononKoko());
+			add(palvelupisteet[1].jononKoko());
+			add(palvelupisteet[2].jononKoko());
+			add(palvelupisteet[3].jononKoko());
+
+		}};
 	}
 }

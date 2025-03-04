@@ -19,7 +19,6 @@ public class SimulaattorinGUI extends Application {
     private Visualisointi naytto;
     private Kontrolleri controller;
 
-
     @Override
     public void start(Stage stage) throws Exception {
         controller = new Kontrolleri();
@@ -37,12 +36,8 @@ public class SimulaattorinGUI extends Application {
         Trace.setTraceLevel(Trace.Level.INFO);
     }
 
-    public void handle(ActionEvent event) {
-        kontrolleri.kaynnistaSimulointi();
-        //kaynnistaButton.setDisable(true);
-    }
     
-        public IVisualisointi getVisualisointi() {
+    public IVisualisointi getVisualisointi() {
             return naytto;
         }
     };

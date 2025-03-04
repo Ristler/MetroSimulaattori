@@ -13,11 +13,21 @@ import view.IVisualisointi;
 import view.Visualisointi;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	@FXML
-	private Canvas Lista;
+	private Canvas SAAPlista;
+
+	@FXML
+	private Canvas LTlista;
+
+	@FXML
+	private Canvas LAITlista;
+
+	@FXML
+	private Canvas METROlista;
 
 	@FXML
 	private TextField simviivefield;
@@ -42,10 +52,9 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	// Moottorin ohjausta:
 	public void kaynnistaSimulointi() {
-
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(getAika());
-		naytto = new Visualisointi(Lista);
+		naytto = new Visualisointi(SAAPlista, LTlista, LAITlista, METROlista);
 		moottori.setViive(getViive());
 		//ui.getVisualisointi().tyhjennaNaytto();
 		getVisualisointi(x);
@@ -103,7 +112,9 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	public void visualisoiAsiakas() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				naytto.uusiAsiakas();
+				ArrayList<Integer> jono = moottori.getJono();
+
+				naytto.uusiAsiakas(jono.get(0), jono.get(1), jono.get(2), jono.get(3));
 			}
 		});
 	}

@@ -23,9 +23,7 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET MÃ
 		
 		tapahtumalista = new Tapahtumalista();
 		
-		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa 
-		
-		
+		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa
 	}
 
 	@Override
