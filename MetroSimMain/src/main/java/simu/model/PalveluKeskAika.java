@@ -5,22 +5,25 @@ import java.util.HashMap;
 import simu.framework.Kello;
 
 public class PalveluKeskAika {
-    private HashMap<Integer, Double> Saap_saapumislista = new HashMap<Integer, Double>();
-    private HashMap<Integer, Double> lippu_saapumislista = new HashMap<Integer, Double>();
-    private HashMap<Integer, Double> lait_saapumislista = new HashMap<Integer, Double>();
-    private HashMap<Integer, Double> metro_saapumislista = new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> Saap_saapumislista =   new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> lippu_saapumislista =  new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> lait_saapumislista =   new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> metro_saapumislista =  new HashMap<Integer, Double>();
 
-    private static int saapPalveltu = 0;        // Palveltujen asiakkaiden määrä
-    private static int lippuPalveltu = 0;       
-    private static int laitPalveltu = 0;
-    private static int metroPalveltu = 0;        
+    // Palveltujen asiakkaiden määrä palvelupisteittäin
+    private static int saapPalveltu =   0;          
+    private static int lippuPalveltu =  0;       
+    private static int laitPalveltu =   0;
+    private static int metroPalveltu =  0;        
+    
+    // Keskimääräinen käsittelyaika palvelupisteittäin
+    private static double saapKeskiaika =     0;    
+    private static double lippuKeskiaika =    0;   
+    private static double laituriKeskiaika =  0;
+    private static double metroKeskiaika =    0;
 
-    private static double saapKeskiaika = 0;    // Keskimääräinen käsittelyaika
-    private static double lippuKeskiaika = 0;
-    private static double laituriKeskiaika = 0;
-    private static double metroKeskiaika = 0;
+    // Metodit tallentavat asiakkaan saapumisajan palvelupisteelle listaan
 
-    // Metodit tallentavat asiakkaan saapumisajan palvelupisteelle ja id listaan
     public void setSaapumis(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
         Saap_saapumislista.put(id, saapumisaika);
@@ -33,7 +36,7 @@ public class PalveluKeskAika {
 
     public void setLaituri(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
-        lait_saapumislista.put(id, saapumisaika);
+        lait_saapumislista.put(id, saapumisaika);        
     }
 
     public void setMetro(int id) {
@@ -41,29 +44,30 @@ public class PalveluKeskAika {
         metro_saapumislista.put(id, saapumisaika);
     }
 
-    // Metodit poimivat asiakkaan saapumisajat palvelupisteille ja laskevat keskiarvon
-    public void getSaapumis(int id) {
+    // Metodit tallentavat asiakkaan poistumisajan palvelupisteeltä ja laskevat käsittelyajan
+
+    public void setSaapumisPois(int id) {
         Double saapumisaika = Saap_saapumislista.get(id);
         Double poistumisaika = Kello.getInstance().getAika();
         saapKeskiaika += poistumisaika - saapumisaika;
         saapPalveltu++;
     }
 
-    public void getLippu(int id) {
+    public void setLippuPois(int id) {
         Double saapumisaika = lippu_saapumislista.get(id);
         Double poistumisaika = Kello.getInstance().getAika();
         lippuKeskiaika += poistumisaika - saapumisaika;
         lippuPalveltu++;
     }
 
-    public void getLaituri(int id) {
+    public void setLaituriPois(int id) {
         Double saapumisaika = lait_saapumislista.get(id);
         Double poistumisaika = Kello.getInstance().getAika();
         laituriKeskiaika += poistumisaika - saapumisaika;
         laitPalveltu++;
     }
 
-    public void getMetro(int id) {
+    public void setMetroPois(int id) {
         Double saapumisaika = metro_saapumislista.get(id);
         Double poistumisaika = Kello.getInstance().getAika();
         metroKeskiaika += poistumisaika - saapumisaika;
@@ -71,21 +75,20 @@ public class PalveluKeskAika {
     }
 
     // Metodit palauttavat palvelupisteiden keskimääräisen käsittelyajan
-
     public double getSaapKeskiaika() {
-        return saapKeskiaika / saapPalveltu;
+        return (saapKeskiaika / saapPalveltu);
     }
 
     public double getLippuKeskiaika() {
-        return lippuKeskiaika / lippuPalveltu;
+        return (lippuKeskiaika / lippuPalveltu);
     }
 
     public double getLaituriKeskiaika(){
-        return laituriKeskiaika / laitPalveltu;
+        return (laituriKeskiaika / laitPalveltu);
     }
 
     public double getMetroKeskiaika() {
-        return metroKeskiaika / metroPalveltu;
+        return (metroKeskiaika / metroPalveltu);
     }
 }
 
