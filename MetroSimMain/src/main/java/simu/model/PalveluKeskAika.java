@@ -110,6 +110,22 @@ public class PalveluKeskAika {
             return (metroKeskiaika / metroPalveltu);
         }
     }
+
+    public int getSaapPalveltu() {
+        return saapPalveltu;
+    }
+
+    public int getLippuPalveltu() {
+        return lippuPalveltu;
+    }
+
+    public int getLaitPalveltu() {
+        return laitPalveltu;
+    }
+
+    public int getMetroPalveltu() {
+        return metroPalveltu;
+    }
 }
 
 
