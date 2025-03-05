@@ -75,20 +75,40 @@ public class PalveluKeskAika {
     }
 
     // Metodit palauttavat palvelupisteiden keskimääräisen käsittelyajan
+
+    // Veikko: If statment katsoo että luvut eivät ole nollia, jos ovat palauttaa nollan, muuten palauttaa keskiarvon
+    // ^ Jos lukua jaetaan nollalla, tulee laskennassa virhe
+
     public double getSaapKeskiaika() {
-        return (saapKeskiaika / saapPalveltu);
+        if (saapPalveltu == 0 || saapKeskiaika == 0) {
+            return 0;
+        } else {
+            return (saapKeskiaika / saapPalveltu);
+        }
     }
 
     public double getLippuKeskiaika() {
-        return (lippuKeskiaika / lippuPalveltu);
+        if (lippuPalveltu == 0 || lippuKeskiaika == 0) {
+            return 0;
+        } else {
+            return (lippuKeskiaika / lippuPalveltu);
+        }
     }
 
     public double getLaituriKeskiaika(){
-        return (laituriKeskiaika / laitPalveltu);
+        if (laitPalveltu == 0 || laituriKeskiaika == 0) {
+            return 0;
+        } else {
+            return (laituriKeskiaika / laitPalveltu);
+        }
     }
 
     public double getMetroKeskiaika() {
-        return (metroKeskiaika / metroPalveltu);
+        if (metroPalveltu == 0 || metroKeskiaika == 0) {
+            return 0;
+        } else {
+            return (metroKeskiaika / metroPalveltu);
+        }
     }
 }
 

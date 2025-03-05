@@ -7,5 +7,5 @@ public interface IKontrolleriForM {
     public void naytaLoppuaika(double aika);
     public void visualisoiAsiakas();
 
-    void setLoppuaika(double aika);
+    void setAjat();
 }

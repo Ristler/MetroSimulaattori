@@ -13,11 +13,6 @@ public class Asiakas {
 	private static int i = 1;
 	private static int completedi = 0;
 	private static long sum = 0;
-
-	private int SAAPAsiakkaat = 0;
-	private int LTAsiakkaat = 0;
-	private int LAITAsiakkaat = 0;
-	private int METROAsiakkaat = 0;
 	
 	public Asiakas(){
 	    id = i++;
