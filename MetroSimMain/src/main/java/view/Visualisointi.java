@@ -33,16 +33,16 @@ public class Visualisointi implements IVisualisointi{
 	
 
 	public void tyhjennaNaytto() {
-		SAAPgc.setFill(Color.YELLOW);
+		SAAPgc.setFill(Color.web("#d9e7ff"));
 		SAAPgc.fillRect(0, 0, this.SAAPcanvas.getWidth(), this.SAAPcanvas.getHeight());
 
-		LTgc.setFill(Color.YELLOW);
+		LTgc.setFill(Color.web("#d9e7ff"));
 		LTgc.fillRect(0, 0, this.LTcanvas.getWidth(), this.LTcanvas.getHeight());
 
-		LAITgc.setFill(Color.YELLOW);
+		LAITgc.setFill(Color.web("#d9e7ff"));
 		LAITgc.fillRect(0, 0, this.LAITcanvas.getWidth(), this.LAITcanvas.getHeight());
 
-		METROgc.setFill(Color.YELLOW);
+		METROgc.setFill(Color.web("#d9e7ff"));
 		METROgc.fillRect(0, 0, this.METROcanvas.getWidth(), this.METROcanvas.getHeight());
 	}
 

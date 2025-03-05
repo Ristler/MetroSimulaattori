@@ -118,10 +118,6 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		return naytto;
 	}
 
-	public void Kaynnista(MouseEvent mouseEvent) {
-		kaynnistaSimulointi();
-		//kaynnistaButton.setDisable(true);
-	}
 
 
 	// Simulointitulosten välittämistä käyttöliittymään.

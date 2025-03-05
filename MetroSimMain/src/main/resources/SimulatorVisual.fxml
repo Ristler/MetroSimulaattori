@@ -146,7 +146,7 @@
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                </padding>
             </HBox>
-            <Button fx:id="startbutton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#Kaynnista" prefHeight="38.0" prefWidth="343.0" style="-fx-background-color: #a81400;" text="Käynnistä" textFill="WHITE" GridPane.columnIndex="1">
+            <Button fx:id="startbutton" alignment="CENTER" mnemonicParsing="false" onMouseClicked="#kaynnistaSimulointi" prefHeight="38.0" prefWidth="343.0" style="-fx-background-color: #a81400;" text="Käynnistä" textFill="WHITE" GridPane.columnIndex="1">
                <font>
                   <Font name="Agency FB Bold" size="20.0" />
                </font>
