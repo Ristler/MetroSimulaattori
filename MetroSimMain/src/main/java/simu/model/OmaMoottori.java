@@ -1,6 +1,7 @@
 package simu.model;
 
 import simu.framework.*;
+import dao.MetroDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
@@ -15,11 +16,14 @@ public class OmaMoottori extends Moottori{
 
 	private PalveluKeskAika palveluKeskAika;
 
+	private MetroDao metroDao;
+
 
 	public OmaMoottori(IKontrolleriForM kontrolleri){
 
 		super(kontrolleri);
 
+		metroDao = new MetroDao();
 		palvelupisteet = new Palvelupiste[4];
 		palveluKeskAika = new PalveluKeskAika();
 
@@ -136,10 +140,15 @@ public class OmaMoottori extends Moottori{
 			System.out.println("Keskimääräinen palvelu aika: " + (double)(Asiakas.getSum() / Asiakas.getcompletedi()));
 		}
 
-		System.out.println("Palvelupiste Saap: " + palveluKeskAika.getSaapKeskiaika());
-		System.out.println("Palvelupiste Lippu: " + palveluKeskAika.getLippuKeskiaika());
-		System.out.println("Palvelupiste Laituri: " + palveluKeskAika.getLaituriKeskiaika());
-		System.out.println("Palvelupiste Metro: " + palveluKeskAika.getMetroKeskiaika());
+		try {
+			metroDao.setData("Metroasema", palveluKeskAika.getSaapPalveltu(), palveluKeskAika.getSaapKeskiaika(), Kello.getInstance().getAika());
+			metroDao.setData("Lippuhalli", palveluKeskAika.getLippuPalveltu(), palveluKeskAika.getLippuKeskiaika(), Kello.getInstance().getAika());
+			metroDao.setData("Laituri", palveluKeskAika.getLaitPalveltu(), palveluKeskAika.getLaituriKeskiaika(), Kello.getInstance().getAika());
+			metroDao.setData("Metro", palveluKeskAika.getMetroPalveltu(), palveluKeskAika.getMetroKeskiaika(),Kello.getInstance().getAika());
+			System.out.println("Tiedot tallennettu tietokantaan");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
