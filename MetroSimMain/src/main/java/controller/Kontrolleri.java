@@ -8,12 +8,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import simu.framework.IMoottori;
 import simu.model.OmaMoottori;
+import simu.model.PalveluKeskAika;
 import view.ISimulaattorinUI;
 import view.IVisualisointi;
 import view.Visualisointi;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+
+import simu.framework.Kello;
 
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
@@ -38,9 +41,22 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	@FXML
 	private Label kokonaisaika;// UUSI
 
-	private IMoottori moottori;
+	@FXML
+	private Label SAAPaika;// UUSI
 
+	@FXML
+	private Label LTaika;// UUSI
+
+	@FXML
+	private Label LAITaika;// UUSI
+
+	@FXML
+	private Label METROaika;// UUSI
+
+	private IMoottori moottori;
+	private Kello kello;
 	private ISimulaattorinUI ui;
+	private PalveluKeskAika pka;
 
 	private IVisualisointi naytto;
 	ISimulaattorinUI x;
@@ -55,7 +71,9 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(getAika());
 		naytto = new Visualisointi(SAAPlista, LTlista, LAITlista, METROlista);
+		kello = Kello.getInstance();
 		moottori.setViive(getViive());
+		pka = new PalveluKeskAika();
 		//ui.getVisualisointi().tyhjennaNaytto();
 		getVisualisointi(x);
 		((Thread) moottori).start();
@@ -83,10 +101,17 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		return Long.parseLong(simviivefield.getText());
 	}
 
+
+
+	// Visualisoi ajastimen ja palvelupisteiden keskimääräiset palveluajat
 	@Override
-	public void setLoppuaika(double aika) {
+	public void setAjat() {
 		DecimalFormat formatter = new DecimalFormat("#0.00");
-		Platform.runLater(() -> kokonaisaika.setText(formatter.format(aika)));
+		Platform.runLater(() -> kokonaisaika.setText(formatter.format(kello.getAika())));
+		Platform.runLater(() -> SAAPaika.setText(formatter.format(pka.getSaapKeskiaika())));
+		Platform.runLater(() -> LTaika.setText(formatter.format(pka.getLippuKeskiaika())));
+		Platform.runLater(() -> LAITaika.setText(formatter.format(pka.getLaituriKeskiaika())));
+		Platform.runLater(() -> METROaika.setText(formatter.format(pka.getMetroKeskiaika())));
 	}
 
 	public ISimulaattorinUI getVisualisointi(ISimulaattorinUI naytto) {
