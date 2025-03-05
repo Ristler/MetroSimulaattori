@@ -13,12 +13,15 @@ public class OmaMoottori extends Moottori{
 
 	private Palvelupiste[] palvelupisteet;
 
+	private PalveluKeskAika palveluKeskAika;
+
 
 	public OmaMoottori(IKontrolleriForM kontrolleri){
 
 		super(kontrolleri);
 
 		palvelupisteet = new Palvelupiste[4];
+		palveluKeskAika = new PalveluKeskAika();
 
 		palvelupisteet[0] = new Palvelupiste(new Normal(4,2), tapahtumalista, TapahtumanTyyppi.LT);
 		palvelupisteet[1] = new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.LAIT);
@@ -40,18 +43,36 @@ public class OmaMoottori extends Moottori{
 
 		Asiakas a;
 		switch ((TapahtumanTyyppi)t.getTyyppi()){
-			case SAAP: palvelupisteet[0].lisaaJonoon(new Asiakas());
-				       saapumisprosessi.generoiSeuraava();
-					   kontrolleri.visualisoiAsiakas(); // UUSI
-				break;
+			case SAAP:
+					a = new Asiakas();
+					palvelupisteet[0].lisaaJonoon(a);
+					saapumisprosessi.generoiSeuraava();
+					kontrolleri.visualisoiAsiakas();
+
+					palveluKeskAika.setSaapumisSaap(a.getId());
+					break;
+
 			case LT: a = (Asiakas)palvelupisteet[0].otaJonosta();
-				   	   palvelupisteet[1].lisaaJonoon(a);
+
+					palveluKeskAika.setSaapumisPois(a.getId());
+					palveluKeskAika.setLippuSaap(a.getId());
+
+					palvelupisteet[1].lisaaJonoon(a);
 				break;
-			case LAIT: a = (Asiakas)palvelupisteet[1].otaJonosta();
-				   	   palvelupisteet[2].lisaaJonoon(a);
+
+			case LAIT: 
+					a = (Asiakas)palvelupisteet[1].otaJonosta();
+
+					palveluKeskAika.setLippuPois(a.getId());
+					palveluKeskAika.setLaituriSaap(a.getId());
+
+					palvelupisteet[2].lisaaJonoon(a);
 				break;
+
 			case METRO:
 				int jononkoko;
+
+				// Voisitteko jatkossa kommentoida näitä koodinpätkiä, jotta olisi helpompaa ymmärtää mitä koodi tekee?
 
 				if (palvelupisteet[2].jononKoko() < 5) {
 					jononkoko = palvelupisteet[2].jononKoko();
@@ -61,6 +82,10 @@ public class OmaMoottori extends Moottori{
 
 				for (int i = 0; i < jononkoko; i++) {
 					a = (Asiakas)palvelupisteet[2].otaJonosta();
+
+					palveluKeskAika.setLaituriPois(a.getId());
+					palveluKeskAika.setMetroSaap(a.getId());
+
 					palvelupisteet[3].lisaaJonoon(a);
 				}
 
@@ -79,6 +104,9 @@ public class OmaMoottori extends Moottori{
 
 				for (int i = 0; i < poistokoko; i++) {
 					a = (Asiakas)palvelupisteet[3].otaJonosta();
+
+					palveluKeskAika.setMetroPois(a.getId());
+
 					a.setPoistumisaika(Kello.getInstance().getAika());
 					a.raportti();
 				}
@@ -107,6 +135,11 @@ public class OmaMoottori extends Moottori{
 		} else {
 			System.out.println("Keskimääräinen palvelu aika: " + (double)(Asiakas.getSum() / Asiakas.getcompletedi()));
 		}
+
+		System.out.println("Palvelupiste Saap: " + palveluKeskAika.getSaapKeskiaika());
+		System.out.println("Palvelupiste Lippu: " + palveluKeskAika.getLippuKeskiaika());
+		System.out.println("Palvelupiste Laituri: " + palveluKeskAika.getLaituriKeskiaika());
+		System.out.println("Palvelupiste Metro: " + palveluKeskAika.getMetroKeskiaika());
 	}
 
 	@Override
