@@ -22,24 +22,24 @@ public class PalveluKeskAika {
     private static double laituriKeskiaika =  0;
     private static double metroKeskiaika =    0;
 
-    // Metodit tallentavat asiakkaan saapumisajan palvelupisteelle listaan
+    // Metodit tallentavat asiakkaan saapumisajan palvelupisteelle
 
-    public void setSaapumis(int id) {
+    public void setSaapumisSaap(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
         Saap_saapumislista.put(id, saapumisaika);
     }
     
-    public void setLippu(int id) {
+    public void setLippuSaap(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
         lippu_saapumislista.put(id, saapumisaika);
     }
 
-    public void setLaituri(int id) {
+    public void setLaituriSaap(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
         lait_saapumislista.put(id, saapumisaika);        
     }
 
-    public void setMetro(int id) {
+    public void setMetroSaap(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
         metro_saapumislista.put(id, saapumisaika);
     }
