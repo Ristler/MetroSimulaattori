@@ -8,19 +8,22 @@ public class PalveluKeskAika {
     private HashMap<Integer, Double> Saap_saapumislista =   new HashMap<Integer, Double>();
     private HashMap<Integer, Double> lippu_saapumislista =  new HashMap<Integer, Double>();
     private HashMap<Integer, Double> lait_saapumislista =   new HashMap<Integer, Double>();
-    private HashMap<Integer, Double> metro_saapumislista =  new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> metro1_saapumislista = new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> metro2_saapumislista = new HashMap<Integer, Double>();
 
     // Palveltujen asiakkaiden määrä palvelupisteittäin
-    private static int saapPalveltu =   0;          
-    private static int lippuPalveltu =  0;       
-    private static int laitPalveltu =   0;
-    private static int metroPalveltu =  0;        
+    private static int saapPalveltu =    0;          
+    private static int lippuPalveltu =   0;       
+    private static int laitPalveltu =    0;
+    private static int metro1Palveltu =  0;    
+    private static int metro2Palveltu =  0;
     
     // Keskimääräinen käsittelyaika palvelupisteittäin
     private static double saapKeskiaika =     0;    
     private static double lippuKeskiaika =    0;   
     private static double laituriKeskiaika =  0;
-    private static double metroKeskiaika =    0;
+    private static double metro1Keskiaika =   0;
+    private static double metro2Keskiaika =   0;
 
     // Metodit tallentavat asiakkaan saapumisajan palvelupisteelle
 
@@ -39,9 +42,14 @@ public class PalveluKeskAika {
         lait_saapumislista.put(id, saapumisaika);        
     }
 
-    public void setMetroSaap(int id) {
+    public void setMetro1Saap(int id) {
         Double saapumisaika = Kello.getInstance().getAika();
-        metro_saapumislista.put(id, saapumisaika);
+        metro1_saapumislista.put(id, saapumisaika);
+    }
+
+    public void setMetro2Saap(int id) {
+        Double saapumisaika = Kello.getInstance().getAika();
+        metro2_saapumislista.put(id, saapumisaika);
     }
 
     // Metodit tallentavat asiakkaan poistumisajan palvelupisteeltä ja laskevat käsittelyajan
@@ -67,11 +75,18 @@ public class PalveluKeskAika {
         laitPalveltu++;
     }
 
-    public void setMetroPois(int id) {
-        Double saapumisaika = metro_saapumislista.get(id);
+    public void setMetro1Pois(int id) {
+        Double saapumisaika = metro1_saapumislista.get(id);
         Double poistumisaika = Kello.getInstance().getAika();
-        metroKeskiaika += poistumisaika - saapumisaika;
-        metroPalveltu++;
+        metro1Keskiaika += poistumisaika - saapumisaika;
+        metro1Palveltu++;
+    }
+
+    public void setMetro2Pois(int id) {
+        Double saapumisaika = metro1_saapumislista.get(id);
+        Double poistumisaika = Kello.getInstance().getAika();
+        metro1Keskiaika += poistumisaika - saapumisaika;
+        metro1Palveltu++;
     }
 
     // Metodit palauttavat palvelupisteiden keskimääräisen käsittelyajan
@@ -103,11 +118,19 @@ public class PalveluKeskAika {
         }
     }
 
-    public double getMetroKeskiaika() {
-        if (metroPalveltu == 0 || metroKeskiaika == 0) {
+    public double getMetro1Keskiaika() {
+        if (metro1Palveltu == 0 || metro1Keskiaika == 0) {
             return 0;
         } else {
-            return (metroKeskiaika / metroPalveltu);
+            return (metro1Keskiaika / metro1Palveltu);
+        }
+    }
+
+    public double getMetro2Keskiaika() {
+        if (metro1Palveltu == 0 || metro1Keskiaika == 0) {
+            return 0;
+        } else {
+            return (metro2Keskiaika / metro2Palveltu);
         }
     }
 
@@ -123,8 +146,12 @@ public class PalveluKeskAika {
         return laitPalveltu;
     }
 
-    public int getMetroPalveltu() {
-        return metroPalveltu;
+    public int getMetro1Palveltu() {
+        return metro1Palveltu;
+    }
+
+    public int getMetro2Palveltu() {
+        return metro1Palveltu;
     }
 }
 
