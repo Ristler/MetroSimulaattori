@@ -33,7 +33,7 @@
                         <Font name="Leelawadee Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="SAAPaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="24.0" textAlignment="CENTER">
+                  <Label fx:id="SAAPaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="0" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="20.0" />
                      </font>
@@ -42,7 +42,7 @@
             </VBox>
             <VBox alignment="CENTER" layoutX="400.0" layoutY="30.0" prefHeight="402.0" prefWidth="230.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="211.0" text="Metroasema" textAlignment="CENTER">
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="42.0" prefWidth="211.0" text="Lippuhalli" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="19.0" />
                      </font>
@@ -53,7 +53,7 @@
                         <Font name="Leelawadee Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="LTaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="24.0" textAlignment="CENTER">
+                  <Label fx:id="LTaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="0" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="20.0" />
                      </font>
@@ -73,7 +73,7 @@
                         <Font name="Leelawadee Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="LAITaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="24.0" textAlignment="CENTER">
+                  <Label fx:id="LAITaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="0" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="20.0" />
                      </font>
@@ -93,7 +93,7 @@
                         <Font name="Leelawadee Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Label fx:id="METROaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="24.0" textAlignment="CENTER">
+                  <Label fx:id="METROaika" alignment="CENTER" contentDisplay="CENTER" layoutX="20.0" layoutY="398.0" prefHeight="31.0" prefWidth="211.0" text="0" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="20.0" />
                      </font>
@@ -115,14 +115,14 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text=" METRO SIMULAATTORI" textFill="WHITE">
+            <Label text=" METROSIMULAATTORI" textFill="WHITE">
                <font>
                   <Font name="Leelawadee Bold" size="32.0" />
                </font>
             </Label>
             <HBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="575.0" spacing="10.0" GridPane.rowIndex="1">
                <children>
-                  <Label prefHeight="30.0" prefWidth="160.0" text="Simulointi Aika:" textFill="WHITE">
+                  <Label prefHeight="30.0" prefWidth="160.0" text="Simulointiaika:" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
@@ -153,7 +153,7 @@
             </Button>
             <HBox alignment="CENTER_RIGHT" layoutX="20.0" layoutY="116.0" prefHeight="100.0" prefWidth="200.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="160.0" text="Kokonais Aika:" textFill="WHITE">
+                  <Label alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="160.0" text="Kokonaisaika:" textFill="WHITE">
                      <font>
                         <Font name="Leelawadee UI" size="20.0" />
                      </font>
