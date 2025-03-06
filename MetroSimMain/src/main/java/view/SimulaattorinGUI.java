@@ -36,23 +36,21 @@ public class SimulaattorinGUI extends Application {
 
 
     //Prompt näkyy simuloinnin loputtua. Kesken.
-    public void showData(ArrayList<String> data) {
-        System.out.println("SimulaattorinGUI: " + data);
-
-        String id = data.get(0);
-        String pvm = data.get(1);
-        String kello = data.get(2);
-        String asiakkaitapalveltu = data.get(3);
-        String Keskim_jonotusaika = data.get(4);
-        String Simulointiaikaa = data.get(5);
+    public void showData(String asiakkaitapalveltuMetroasema, String asiakkaitapalveltuLippuhalli, String asiakkaitapalveltuLaituri) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Simulaattori päättyi");
         alert.setHeaderText(null);
 
-        alert.setContentText("Simulaattorin data: \nMatkustajien määrä: " + asiakkaitapalveltu);
+        //Set dataa, lisää myös asiakkaiden määrä keskiarvo + kaikkien palveluajan keskiarvo
+        alert.setContentText("Simulaattorin data: \nMetroaseman asiakkaiden määrä: "
+                + asiakkaitapalveltuMetroasema +
+                "\nLippuhallin asiakkaiden määrä: "
+                + asiakkaitapalveltuLippuhalli +
+                "\nLaiturin asiakkaiden määrä: "
+                + asiakkaitapalveltuLaituri +
+                "\nAsiakkaiden keskimääräinen palveluaika: ");
 
-        // Show the alert and wait for the user to click OK
         alert.showAndWait();
     }
 

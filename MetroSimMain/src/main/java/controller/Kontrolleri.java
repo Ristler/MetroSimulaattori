@@ -119,9 +119,25 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	}
 
 
+	//Fetchaa dataa tietokannasta ja näyttää sen käyttöliittymässä simulaation päätyttyä.
 	public void getData() {
+		ArrayList<String> metroasema = metroDao.getData("Metroasema");
+		ArrayList<String> lippuhalli = metroDao.getData("Lippuhalli");
+		ArrayList<String> laituri = metroDao.getData("Laituri");
+
+		//ArrayList<String> metrom1 = metroDao.getData("Metro_M1");
+		//ArrayList<String> metrom2 = metroDao.getData("Metro_M2");
+
+		//Asiakkaiden määrä palveltu
+		String asiakkaitapalveltuMetroasema = metroasema.get(3);
+		String asiakkaitapalveltuLippuhalli = lippuhalli.get(3);
+		String asiakkaitapalveltuLaituri = laituri.get(3);
+
+		//Asiakkaiden määrä todo
+
+		//Näytä UI:ssa
 		Platform.runLater(() -> {
-			gui.showData(metroDao.getData("Metroasema"));
+			gui.showData(asiakkaitapalveltuMetroasema, asiakkaitapalveltuLippuhalli, asiakkaitapalveltuLaituri);
 		});
 	}
 
