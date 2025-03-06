@@ -195,10 +195,11 @@ public class OmaMoottori extends Moottori{
 			metroDao.setData("Metro_M1", palveluKeskAika.getMetro1Palveltu(), palveluKeskAika.getMetro1Keskiaika(),Kello.getInstance().getAika());
 			metroDao.setData("Metro_M2", palveluKeskAika.getMetro2Palveltu(), palveluKeskAika.getMetro2Keskiaika(),Kello.getInstance().getAika());
 			System.out.println("Tiedot tallennettu tietokantaan");
+			kontrolleri.getData();
 
-			Platform.runLater(() -> {
-				gui.showData(metroDao.getData("Metroasema"));
-			});
+
+
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,5 +1,6 @@
 package controller;
 
+import dao.MetroDao;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
@@ -11,6 +12,7 @@ import simu.model.OmaMoottori;
 import simu.model.PalveluKeskAika;
 import view.ISimulaattorinUI;
 import view.IVisualisointi;
+import view.SimulaattorinGUI;
 import view.Visualisointi;
 
 import java.text.DecimalFormat;
@@ -64,6 +66,12 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	private ISimulaattorinUI ui;
 	private PalveluKeskAika pka;
 
+	private MetroDao metroDao;
+	private SimulaattorinGUI gui;
+
+
+
+
 	private IVisualisointi naytto;
 	ISimulaattorinUI x;
 
@@ -75,6 +83,9 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	// Moottorin ohjausta:
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
+		metroDao = new MetroDao();
+		gui = new SimulaattorinGUI();
+
 		moottori.setSimulointiaika(getAika());
 		naytto = new Visualisointi(SAAPlista, LTlista, LAITlista, METROM1lista, METROM2lista);
 		kello = Kello.getInstance();
@@ -108,6 +119,11 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	}
 
 
+	public void getData() {
+		Platform.runLater(() -> {
+			gui.showData(metroDao.getData("Metroasema"));
+		});
+	}
 
 	// Visualisoi ajastimen ja palvelupisteiden keskimääräiset palveluajat
 	@Override
@@ -146,5 +162,4 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 			}
 		});
 	}
-
 }
