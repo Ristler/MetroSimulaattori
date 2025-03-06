@@ -30,7 +30,10 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	private Canvas LAITlista;
 
 	@FXML
-	private Canvas METROlista;
+	private Canvas METROM1lista;
+
+	@FXML
+	private Canvas METROM2lista;
 
 	@FXML
 	private TextField simviivefield;
@@ -51,7 +54,10 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	private Label LAITaika;// UUSI
 
 	@FXML
-	private Label METROaika;// UUSI
+	private Label METROM1aika;// UUSI
+
+	@FXML
+	private Label METROM2aika;// UUSI
 
 	private IMoottori moottori;
 	private Kello kello;
@@ -70,7 +76,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
 		moottori.setSimulointiaika(getAika());
-		naytto = new Visualisointi(SAAPlista, LTlista, LAITlista, METROlista);
+		naytto = new Visualisointi(SAAPlista, LTlista, LAITlista, METROM1lista, METROM2lista);
 		kello = Kello.getInstance();
 		moottori.setViive(getViive());
 		pka = new PalveluKeskAika();
@@ -111,7 +117,8 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		Platform.runLater(() -> SAAPaika.setText(formatter.format(pka.getSaapKeskiaika())));
 		Platform.runLater(() -> LTaika.setText(formatter.format(pka.getLippuKeskiaika())));
 		Platform.runLater(() -> LAITaika.setText(formatter.format(pka.getLaituriKeskiaika())));
-		Platform.runLater(() -> METROaika.setText(formatter.format(pka.getMetroKeskiaika())));
+		Platform.runLater(() -> METROM1aika.setText(formatter.format(pka.getMetro1Keskiaika())));
+		Platform.runLater(() -> METROM2aika.setText(formatter.format(pka.getMetro2Keskiaika())));
 	}
 
 	public ISimulaattorinUI getVisualisointi(ISimulaattorinUI naytto) {
@@ -135,7 +142,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 			public void run() {
 				ArrayList<Integer> jono = moottori.getJono();
 
-				naytto.uusiAsiakas(jono.get(0), jono.get(1), jono.get(2), jono.get(3));
+				naytto.uusiAsiakas(jono.get(0), jono.get(1), jono.get(2), jono.get(3), jono.get(4));
 			}
 		});
 	}

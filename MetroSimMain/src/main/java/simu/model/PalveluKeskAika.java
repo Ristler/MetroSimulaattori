@@ -83,10 +83,10 @@ public class PalveluKeskAika {
     }
 
     public void setMetro2Pois(int id) {
-        Double saapumisaika = metro1_saapumislista.get(id);
+        Double saapumisaika = metro2_saapumislista.get(id);
         Double poistumisaika = Kello.getInstance().getAika();
-        metro1Keskiaika += poistumisaika - saapumisaika;
-        metro1Palveltu++;
+        metro2Keskiaika += poistumisaika - saapumisaika;
+        metro2Palveltu++;
     }
 
     // Metodit palauttavat palvelupisteiden keskimääräisen käsittelyajan
@@ -127,7 +127,7 @@ public class PalveluKeskAika {
     }
 
     public double getMetro2Keskiaika() {
-        if (metro1Palveltu == 0 || metro1Keskiaika == 0) {
+        if (metro2Palveltu == 0 || metro2Keskiaika == 0) {
             return 0;
         } else {
             return (metro2Keskiaika / metro2Palveltu);
@@ -151,7 +151,7 @@ public class PalveluKeskAika {
     }
 
     public int getMetro2Palveltu() {
-        return metro1Palveltu;
+        return metro2Palveltu;
     }
 }
 

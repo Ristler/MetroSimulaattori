@@ -1,10 +1,12 @@
 package simu.model;
 
+import javafx.application.Platform;
 import simu.framework.*;
 import dao.MetroDao;
 import eduni.distributions.Negexp;
 import eduni.distributions.Normal;
 import controller.IKontrolleriForM;
+import view.SimulaattorinGUI;
 
 import java.util.ArrayList;
 
@@ -18,22 +20,25 @@ public class OmaMoottori extends Moottori{
 
 	private MetroDao metroDao;
 
+	private SimulaattorinGUI gui;
 
 	public OmaMoottori(IKontrolleriForM kontrolleri){
 
 		super(kontrolleri);
 
 		metroDao = new MetroDao();
-		palvelupisteet = new Palvelupiste[4];
+		palvelupisteet = new Palvelupiste[5];
 		palveluKeskAika = new PalveluKeskAika();
 
-		palvelupisteet[0] = new Palvelupiste(new Normal(4,2), tapahtumalista, TapahtumanTyyppi.LT);
-		palvelupisteet[1] = new Palvelupiste(new Normal(10,10), tapahtumalista, TapahtumanTyyppi.LAIT);
-		palvelupisteet[2] = new Palvelupiste(new Normal(100,20), tapahtumalista, TapahtumanTyyppi.METRO);
-		palvelupisteet[3] = new Palvelupiste(new Normal(20,10), tapahtumalista, TapahtumanTyyppi.POISTU);
+		gui = new SimulaattorinGUI();
 
-		saapumisprosessi = new Saapumisprosessi(new Negexp(3,1), tapahtumalista, TapahtumanTyyppi.SAAP);
+		palvelupisteet[0] = new Palvelupiste(new Normal(11,2), tapahtumalista, TapahtumanTyyppi.LT);
+		palvelupisteet[1] = new Palvelupiste(new Normal(10,2), tapahtumalista, TapahtumanTyyppi.LAIT);
+		palvelupisteet[2] = new Palvelupiste(new Normal(40,2), tapahtumalista, TapahtumanTyyppi.NOUSU);
+		palvelupisteet[3] = new Palvelupiste(new Normal(8,2), tapahtumalista, TapahtumanTyyppi.POISTU);
+		palvelupisteet[4] = new Palvelupiste(new Normal(8,2), tapahtumalista, TapahtumanTyyppi.POISTU);
 
+		saapumisprosessi = new Saapumisprosessi(new Negexp(20,1), tapahtumalista, TapahtumanTyyppi.SAAP);
 	}
 
 
@@ -56,7 +61,7 @@ public class OmaMoottori extends Moottori{
 					palveluKeskAika.setSaapumisSaap(a.getId());
 					break;
 
-			case LT: a = (Asiakas)palvelupisteet[0].otaJonosta();
+			case LT: a = (Asiakas)palvelupisteet[0].otaJonosta(TapahtumanTyyppi.LT);
 
 					palveluKeskAika.setSaapumisPois(a.getId());
 					palveluKeskAika.setLippuSaap(a.getId());
@@ -65,7 +70,7 @@ public class OmaMoottori extends Moottori{
 				break;
 
 			case LAIT: 
-					a = (Asiakas)palvelupisteet[1].otaJonosta();
+					a = (Asiakas)palvelupisteet[1].otaJonosta(TapahtumanTyyppi.LAIT);
 
 					palveluKeskAika.setLippuPois(a.getId());
 					palveluKeskAika.setLaituriSaap(a.getId());
@@ -73,31 +78,53 @@ public class OmaMoottori extends Moottori{
 					palvelupisteet[2].lisaaJonoon(a);
 				break;
 
-			case METRO:
+			case NOUSU:
 				int jononkoko;
 
 				// Voisitteko jatkossa kommentoida näitä koodinpätkiä, jotta olisi helpompaa ymmärtää mitä koodi tekee?
 
 				if (palvelupisteet[2].jononKoko() < 5) {
-					jononkoko = palvelupisteet[2].jononKoko();
+					jononkoko = palvelupisteet[2].getJononKokoM1();
 				} else {
 					jononkoko = 5;
 				}
 
+				System.err.println("METROM1: " + jononkoko);
+
 				for (int i = 0; i < jononkoko; i++) {
-					a = (Asiakas)palvelupisteet[2].otaJonosta();
+					a = (Asiakas)palvelupisteet[2].otaJonosta(TapahtumanTyyppi.METROM1);
 
 					palveluKeskAika.setLaituriPois(a.getId());
-					palveluKeskAika.setMetroSaap(a.getId());
+					palveluKeskAika.setMetro1Saap(a.getId());
 
 					palvelupisteet[3].lisaaJonoon(a);
 				}
 
 				jononkoko = 0;
+
+				int jononkoko2;
+
+				if (palvelupisteet[2].jononKoko() < 5) {
+					jononkoko2 = palvelupisteet[2].getJononKokoM2();
+				} else {
+					jononkoko2 = 5;
+				}
+
+				System.err.println("METROM2: " + jononkoko2);
+
+				for (int i = 0; i < jononkoko2; i++) {
+					a = (Asiakas)palvelupisteet[2].otaJonosta(TapahtumanTyyppi.METROM2);
+
+					palveluKeskAika.setLaituriPois(a.getId());
+					palveluKeskAika.setMetro2Saap(a.getId());
+
+					palvelupisteet[4].lisaaJonoon(a);
+				}
+
+				jononkoko2 = 0;
+
 				break;
 			case POISTU:
-				System.out.println("Poistu");
-
 				int poistokoko;
 
 				if (palvelupisteet[3].jononKoko() < 5) {
@@ -107,15 +134,35 @@ public class OmaMoottori extends Moottori{
 				}
 
 				for (int i = 0; i < poistokoko; i++) {
-					a = (Asiakas)palvelupisteet[3].otaJonosta();
+					a = (Asiakas)palvelupisteet[3].otaJonosta(TapahtumanTyyppi.POISTU);
 
-					palveluKeskAika.setMetroPois(a.getId());
+					palveluKeskAika.setMetro1Pois(a.getId());
 
 					a.setPoistumisaika(Kello.getInstance().getAika());
 					a.raportti();
 				}
 
 				poistokoko = 0;
+
+
+				if (palvelupisteet[4].jononKoko() < 5) {
+					poistokoko = palvelupisteet[4].jononKoko();
+				} else {
+					poistokoko = 5;
+				}
+
+				for (int i = 0; i < poistokoko; i++) {
+					a = (Asiakas)palvelupisteet[4].otaJonosta(TapahtumanTyyppi.POISTU);
+
+					palveluKeskAika.setMetro2Pois(a.getId());
+
+					a.setPoistumisaika(Kello.getInstance().getAika());
+					a.raportti();
+				}
+
+				poistokoko = 0;
+
+
 		}
 	}
 
@@ -145,8 +192,13 @@ public class OmaMoottori extends Moottori{
 			metroDao.setData("Metroasema", palveluKeskAika.getSaapPalveltu(), palveluKeskAika.getSaapKeskiaika(), Kello.getInstance().getAika());
 			metroDao.setData("Lippuhalli", palveluKeskAika.getLippuPalveltu(), palveluKeskAika.getLippuKeskiaika(), Kello.getInstance().getAika());
 			metroDao.setData("Laituri", palveluKeskAika.getLaitPalveltu(), palveluKeskAika.getLaituriKeskiaika(), Kello.getInstance().getAika());
-			metroDao.setData("Metro", palveluKeskAika.getMetroPalveltu(), palveluKeskAika.getMetroKeskiaika(),Kello.getInstance().getAika());
+			metroDao.setData("Metro_M1", palveluKeskAika.getMetro1Palveltu(), palveluKeskAika.getMetro1Keskiaika(),Kello.getInstance().getAika());
+			metroDao.setData("Metro_M2", palveluKeskAika.getMetro2Palveltu(), palveluKeskAika.getMetro2Keskiaika(),Kello.getInstance().getAika());
 			System.out.println("Tiedot tallennettu tietokantaan");
+
+			Platform.runLater(() -> {
+				gui.showData(metroDao.getData("Metroasema"));
+			});
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -159,7 +211,7 @@ public class OmaMoottori extends Moottori{
 			add(palvelupisteet[1].jononKoko());
 			add(palvelupisteet[2].jononKoko());
 			add(palvelupisteet[3].jononKoko());
-
+			add(palvelupisteet[4].jononKoko());
 		}};
 	}
 }

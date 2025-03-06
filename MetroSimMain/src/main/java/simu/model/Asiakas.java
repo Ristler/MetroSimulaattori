@@ -12,13 +12,15 @@ public class Asiakas {
 	private int id;
 	private static int i = 1;
 	private static int completedi = 0;
+	private int metro;
 	private static long sum = 0;
 	
 	public Asiakas(){
 	    id = i++;
+		metro = (int)(Math.random() * 2) + 1;
 	    
 		saapumisaika = Kello.getInstance().getAika();
-		Trace.out(Trace.Level.INFO, "Uusi asiakas:" + id + ":"+saapumisaika);
+		Trace.out(Trace.Level.INFO, "Uusi asiakas:" + id + ":"+saapumisaika+ " metro: "+metro);
 	}
 
 	public int getId() {
@@ -50,6 +52,10 @@ public class Asiakas {
 
 	static public int getcompletedi() {
 		return completedi;
+	}
+
+	public int getMetro() {
+		return metro;
 	}
 	
 	public void raportti(){

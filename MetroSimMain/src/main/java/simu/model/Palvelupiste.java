@@ -29,11 +29,31 @@ public class Palvelupiste {
 
 	public void lisaaJonoon(Asiakas a){   // Jonon 1. asiakas aina palvelussa
 		jono.add(a);
-		
 	}
 
-	public Asiakas otaJonosta(){  // Poistetaan palvelussa ollut
+	public int getJononKokoM1() {
+		return (int) jono.stream().filter(asiakas -> asiakas.getMetro() == 1).count();
+	}
+
+	public int getJononKokoM2() {
+		return (int) jono.stream().filter(asiakas -> asiakas.getMetro() == 2).count();
+	}
+
+	public Asiakas otaJonosta(TapahtumanTyyppi tuotutapahtumanTyyppi){  // Poistetaan palvelussa ollut
 		varattu = false;
+
+		if (tuotutapahtumanTyyppi == TapahtumanTyyppi.METROM1 || tuotutapahtumanTyyppi == TapahtumanTyyppi.METROM2) {
+			for (Asiakas asiakas : jono) {
+				if (asiakas.getMetro() == 1 && tuotutapahtumanTyyppi == TapahtumanTyyppi.METROM1) {
+					System.err.println("METROM1");
+					return jono.remove(jono.indexOf(asiakas));
+				} else if (asiakas.getMetro() == 2 && tuotutapahtumanTyyppi == TapahtumanTyyppi.METROM2) {
+					System.err.println("METROM2");
+					return jono.remove(jono.indexOf(asiakas));
+				}
+			}
+		}
+
 		return jono.poll();
 	}
 
