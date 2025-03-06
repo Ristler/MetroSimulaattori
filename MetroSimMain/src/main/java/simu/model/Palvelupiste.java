@@ -57,6 +57,12 @@ public class Palvelupiste {
 		return jono.poll();
 	}
 
+	public void avaaPalvelu(){
+		varattu = false;
+	}
+
+
+
 	public void aloitaPalvelu(){  //Aloitetaan uusi palvelu, asiakas on jonossa palvelun aikana
 		
 		Trace.out(Trace.Level.INFO, this.skeduloitavanTapahtumanTyyppi.name() + " Aloitetaan uusi palvelu asiakkaalle " + jono.peek().getId());
