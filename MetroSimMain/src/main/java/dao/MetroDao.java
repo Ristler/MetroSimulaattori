@@ -29,7 +29,7 @@ public class MetroDao {
     public ArrayList<String> getData(String taulu) {
         ArrayList<String> data = new ArrayList<>();
         Connection connection = DbConnection.getConnection();
-        String sql = "SELECT * FROM " + taulu + "ORDER BY id DESC LIMIT 1";
+        String sql = "SELECT * FROM " + taulu + " ORDER BY id DESC LIMIT 1";
         
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
