@@ -5,9 +5,9 @@ import java.util.HashMap;
 import simu.framework.Kello;
 
 public class PalveluKeskAika {
-    private HashMap<Integer, Double> Saap_saapumislista =   new HashMap<Integer, Double>();
-    private HashMap<Integer, Double> lippu_saapumislista =  new HashMap<Integer, Double>();
-    private HashMap<Integer, Double> lait_saapumislista =   new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> Saap_saapumislista   = new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> lippu_saapumislista  = new HashMap<Integer, Double>();
+    private HashMap<Integer, Double> lait_saapumislista   = new HashMap<Integer, Double>();
     private HashMap<Integer, Double> metro1_saapumislista = new HashMap<Integer, Double>();
     private HashMap<Integer, Double> metro2_saapumislista = new HashMap<Integer, Double>();
 
