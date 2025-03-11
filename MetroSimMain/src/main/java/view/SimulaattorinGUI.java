@@ -36,7 +36,7 @@ public class SimulaattorinGUI extends Application {
 
 
     //Prompt näkyy simuloinnin loputtua. Kesken.
-    public void showData(String asiakkaitapalveltuMetroasema, String asiakkaitapalveltuLippuhalli, String asiakkaitapalveltuLaituri, double keskiarvo) {
+    public void showData(int asiakkaitapalveltuMetroasema, int asiakkaitapalveltuLippuhalli, int asiakkaitapalveltuLaituri, int m1asiakkaat, int m2asiakkaat,  double keskiarvo, double tulot) {
 
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Simulaattori päättyi");
@@ -51,11 +51,15 @@ public class SimulaattorinGUI extends Application {
                         "\nLippuhallin asiakkaiden määrä: "
                         + asiakkaitapalveltuLippuhalli +
                         "\nLaiturin asiakkaiden määrä: " + asiakkaitapalveltuLaituri  +
+                        "\nMetro 1:n asiakkaiden määrä: " + m1asiakkaat +
+                        "\nMetro 2:n asiakkaiden määrä: " + m2asiakkaat +
                         "\n" +
-                        "\nAsiakkaiden keskimääräinen palveluaika: " + Math.round(keskiarvo * 100.0) / 100.0
+                        "\nAsiakkaiden keskimääräinen palveluaika: " + Math.round(keskiarvo * 100.0) / 100.0 +
+                        "\nMetroasema tienasi tänään: " + Math.round(tulot * 100.0) / 100.0 + "€"
         );
         alert.showAndWait();
     }
+
 
 
     public void init() {

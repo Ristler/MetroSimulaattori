@@ -123,32 +123,29 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	//Fetchaa dataa tietokannasta ja näyttää sen käyttöliittymässä simulaation päätyttyä.
 	public void getData() {
-		ArrayList<String> metroasema = metroDao.getData("Metroasema");
-		ArrayList<String> lippuhalli = metroDao.getData("Lippuhalli");
-		ArrayList<String> laituri = metroDao.getData("Laituri");
 
-		ArrayList<String> metrom1 = metroDao.getData("Metro_M1");
-		ArrayList<String> metrom2 = metroDao.getData("Metro_M2");
-
-		//Asiakkaiden määrä palveltu
-		String asiakkaitapalveltuMetroasema = metroasema.get(3);
-		String asiakkaitapalveltuLippuhalli = lippuhalli.get(3);
-		String asiakkaitapalveltuLaituri = laituri.get(3);
+		//Asiakkaiden määrä palvelupisteittäin
+		int palveltuMetroasema = pka.getSaapPalveltu();
+		int palveltuLippuhalli = pka.getLippuPalveltu();
+		int palveltuLaituri = pka.getLaitPalveltu();
+		int palveltuM1 = pka.getMetro1Palveltu();
+		int palveltuM2 = pka.getMetro2Palveltu();
 
 		//Keskimääräinen palveluaika per palvelupiste
-		Double kaMetroasema = Double.parseDouble(metroasema.get(4));
-		Double kaLippuhalli = Double.parseDouble(lippuhalli.get(4));
-		Double kaLaituri = Double.parseDouble(laituri.get(4));
-		Double kaM1 = Double.parseDouble(metrom1.get(4));
-		Double kaM2 = Double.parseDouble(metrom2.get(4));
+		Double kaMetroasema = pka.getSaapKeskiaika();
+		Double kaLippuhalli = pka.getLippuKeskiaika();
+		Double kaLaituri = pka.getLaituriKeskiaika();
+		Double kaM1 = pka.getMetro1Keskiaika();
+		Double kaM2 = pka.getMetro2Keskiaika();
 
+		Double tulot = palveltuLippuhalli * 3.40;
 
 		//Laske kaikkien keskiarvo
-		double palveluKeskiarvo = kaMetroasema+kaLippuhalli+kaLaituri+kaM1+kaM2 / 5;
+		double palveluKeskiarvo = (kaMetroasema + kaLippuhalli + kaLaituri + kaM1 + kaM2) / 5;
 
-				//Näytä UI:ssa
+		//Näytä UI:ssa
 		Platform.runLater(() -> {
-			gui.showData(asiakkaitapalveltuMetroasema, asiakkaitapalveltuLippuhalli, asiakkaitapalveltuLaituri, palveluKeskiarvo);
+			gui.showData(palveltuMetroasema, palveltuLippuhalli, palveltuLaituri, palveltuM1, palveltuM2, palveluKeskiarvo, tulot);
 		});
 	}
 
