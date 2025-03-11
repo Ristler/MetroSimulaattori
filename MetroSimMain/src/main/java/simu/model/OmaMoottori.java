@@ -70,7 +70,7 @@ public class OmaMoottori extends Moottori {
                 
                 saapumisprosessi.generoiSeuraava();
                 kontrolleri.visualisoiAsiakas();
-                System.err.println("Asiakas " + a.getId() + " tila on " + a.getMetro() + " ja lippu on " + a.getLippu());
+                System.err.println("Asiakas " + a.getId() + " tila on M" + a.getMetro() + " ja lippu on " + a.getLippu());
 
                 palveluKeskAika.setSaapumisSaap(a.getId());
                 break;
@@ -157,17 +157,7 @@ public class OmaMoottori extends Moottori {
                     }
                 }
 
-                System.out.println();
-                System.out.println("Kello: " + kello.getAika());
-                System.out.println("LastTime: " + lastTime);
-                System.out.println("WaitTime: " + waitTime);
-                System.out.println("Yhteensä: " + (lastTime + waitTime));
-                System.out.println();
-                System.out.println("M1_turn: " + M1_turn);
-                System.out.println();
-
                 palvelupisteet[2].avaaPalvelu();
-                System.out.println("M1_turn: " + M1_turn);
 
                 break;
             case POISTU:
