@@ -125,19 +125,28 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		ArrayList<String> lippuhalli = metroDao.getData("Lippuhalli");
 		ArrayList<String> laituri = metroDao.getData("Laituri");
 
-		//ArrayList<String> metrom1 = metroDao.getData("Metro_M1");
-		//ArrayList<String> metrom2 = metroDao.getData("Metro_M2");
+		ArrayList<String> metrom1 = metroDao.getData("Metro_M1");
+		ArrayList<String> metrom2 = metroDao.getData("Metro_M2");
 
 		//Asiakkaiden määrä palveltu
 		String asiakkaitapalveltuMetroasema = metroasema.get(3);
 		String asiakkaitapalveltuLippuhalli = lippuhalli.get(3);
 		String asiakkaitapalveltuLaituri = laituri.get(3);
 
-		//Asiakkaiden määrä todo
+		//Keskimääräinen palveluaika per palvelupiste
+		Double kaMetroasema = Double.parseDouble(metroasema.get(4));
+		Double kaLippuhalli = Double.parseDouble(lippuhalli.get(4));
+		Double kaLaituri = Double.parseDouble(laituri.get(4));
+		Double kaM1 = Double.parseDouble(metrom1.get(4));
+		Double kaM2 = Double.parseDouble(metrom2.get(4));
 
-		//Näytä UI:ssa
+
+		//Laske kaikkien keskiarvo
+		double palveluKeskiarvo = kaMetroasema+kaLippuhalli+kaLaituri+kaM1+kaM2 / 5;
+
+				//Näytä UI:ssa
 		Platform.runLater(() -> {
-			gui.showData(asiakkaitapalveltuMetroasema, asiakkaitapalveltuLippuhalli, asiakkaitapalveltuLaituri);
+			gui.showData(asiakkaitapalveltuMetroasema, asiakkaitapalveltuLippuhalli, asiakkaitapalveltuLaituri, palveluKeskiarvo);
 		});
 	}
 
