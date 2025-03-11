@@ -100,9 +100,8 @@ public class OmaMoottori extends Moottori {
                 double currentTime = kello.getAika();
                 double waitTime = 500;
 
-                if (currentTime >= (lastTime + waitTime)) {
-               
-
+                if (currentTime > (lastTime + waitTime)) {
+                            
                     if (M1_turn == true) {
                         int jononkoko;
 
@@ -124,6 +123,8 @@ public class OmaMoottori extends Moottori {
                             palvelupisteet[3].lisaaJonoon(a);
                         }
                         jononkoko = 0;
+                        lastTime = currentTime;
+                        M1_turn = !M1_turn;
                         
                       } else {
                         int jononkoko2;
@@ -144,6 +145,8 @@ public class OmaMoottori extends Moottori {
 
                             palvelupisteet[4].lisaaJonoon(a);
                         }
+                        lastTime = currentTime;
+                        M1_turn = !M1_turn;
                         jononkoko2 = 0;
                     }
                 }
@@ -158,9 +161,7 @@ public class OmaMoottori extends Moottori {
                 System.out.println();
 
                 palvelupisteet[2].avaaPalvelu();
-                M1_turn = !M1_turn;
                 System.out.println("M1_turn: " + M1_turn);
-                lastTime = currentTime;
 
                 break;
             case POISTU:
