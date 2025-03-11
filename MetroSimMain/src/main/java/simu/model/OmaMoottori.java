@@ -24,6 +24,10 @@ public class OmaMoottori extends Moottori {
 
     private Kello kello;
 
+    private boolean M1_turn;
+
+    private double lastTime = 0;
+
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
         super(kontrolleri);
@@ -32,7 +36,7 @@ public class OmaMoottori extends Moottori {
         palvelupisteet = new Palvelupiste[5];
         palveluKeskAika = new PalveluKeskAika();
         kello = Kello.getInstance();
-
+        M1_turn = true;
         gui = new SimulaattorinGUI();
 
         palvelupisteet[0] = new Palvelupiste(new Normal(11, 2), tapahtumalista, TapahtumanTyyppi.LT);
@@ -60,6 +64,7 @@ public class OmaMoottori extends Moottori {
                 palvelupisteet[0].lisaaJonoon(a);
                 saapumisprosessi.generoiSeuraava();
                 kontrolleri.visualisoiAsiakas();
+                System.err.println("Asiakas " + a.getId() + " tila on " + a.getMetro());
 
                 palveluKeskAika.setSaapumisSaap(a.getId());
                 break;
@@ -92,51 +97,70 @@ public class OmaMoottori extends Moottori {
 
                 System.err.println("Kello: " + kello.getAika());
 
-                if ((int) kello.getAika() >= 500 && (int) kello.getAika() <= 600) {
-                    int jononkoko;
+                double currentTime = kello.getAika();
+                double waitTime = 500;
 
-                    if (palvelupisteet[2].jononKoko() < 500) {
-                        jononkoko = palvelupisteet[2].getJononKokoM1();
-                    } else {
-                        jononkoko = 5;
+                if (currentTime >= (lastTime + waitTime)) {
+               
+
+                    if (M1_turn == true) {
+                        int jononkoko;
+
+                        if (palvelupisteet[2].jononKoko() < 500) {
+                            jononkoko = palvelupisteet[2].getJononKokoM1();
+                        } else {
+                            jononkoko = 500;
+                        }
+
+                        System.err.println("METROM1: " + jononkoko);
+
+                        for (int i = 0; i < jononkoko; i++) {
+                            a = (Asiakas) palvelupisteet[2].otaJonosta(TapahtumanTyyppi.METROM1);
+                            System.out.println("Asiakas " + a.getId() + " tila on " + a.getMetro());
+
+                            palveluKeskAika.setLaituriPois(a.getId());
+                            palveluKeskAika.setMetro1Saap(a.getId());
+
+                            palvelupisteet[3].lisaaJonoon(a);
+                        }
+                        jononkoko = 0;
+                        
+                      } else {
+                        int jononkoko2;
+
+                        if (palvelupisteet[2].jononKoko() < 500) {
+                            jononkoko2 = palvelupisteet[2].getJononKokoM2();
+                        } else {
+                            jononkoko2 = 500;
+                        }
+
+                        System.err.println("METROM2: " + jononkoko2);
+
+                        for (int i = 0; i < jononkoko2; i++) {
+                            a = (Asiakas) palvelupisteet[2].otaJonosta(TapahtumanTyyppi.METROM2);
+
+                            palveluKeskAika.setLaituriPois(a.getId());
+                            palveluKeskAika.setMetro2Saap(a.getId());
+
+                            palvelupisteet[4].lisaaJonoon(a);
+                        }
+                        jononkoko2 = 0;
                     }
-
-                    System.err.println("METROM1: " + jononkoko);
-
-                    for (int i = 0; i < jononkoko; i++) {
-                        a = (Asiakas) palvelupisteet[2].otaJonosta(TapahtumanTyyppi.METROM1);
-
-                        palveluKeskAika.setLaituriPois(a.getId());
-                        palveluKeskAika.setMetro1Saap(a.getId());
-
-                        palvelupisteet[3].lisaaJonoon(a);
-                    }
-
-                    jononkoko = 0;
-                } else if ((int) kello.getAika() >= 800 && (int) kello.getAika() <= 900) {
-                    int jononkoko2;
-
-                    if (palvelupisteet[2].jononKoko() < 500) {
-                        jononkoko2 = palvelupisteet[2].getJononKokoM2();
-                    } else {
-                        jononkoko2 = 5;
-                    }
-
-                    System.err.println("METROM2: " + jononkoko2);
-
-                    for (int i = 0; i < jononkoko2; i++) {
-                        a = (Asiakas) palvelupisteet[2].otaJonosta(TapahtumanTyyppi.METROM2);
-
-                        palveluKeskAika.setLaituriPois(a.getId());
-                        palveluKeskAika.setMetro2Saap(a.getId());
-
-                        palvelupisteet[4].lisaaJonoon(a);
-                    }
-
-                    jononkoko2 = 0;
                 }
 
+                System.out.println();
+                System.out.println("Kello: " + kello.getAika());
+                System.out.println("LastTime: " + lastTime);
+                System.out.println("WaitTime: " + waitTime);
+                System.out.println("Yhteensä: " + (lastTime + waitTime));
+                System.out.println();
+                System.out.println("M1_turn: " + M1_turn);
+                System.out.println();
+
                 palvelupisteet[2].avaaPalvelu();
+                M1_turn = !M1_turn;
+                System.out.println("M1_turn: " + M1_turn);
+                lastTime = currentTime;
 
                 break;
             case POISTU:
