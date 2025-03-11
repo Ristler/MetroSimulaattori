@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import simu.framework.IMoottori;
+import simu.model.Asiakas;
 import simu.model.OmaMoottori;
 import simu.model.PalveluKeskAika;
 import view.ISimulaattorinUI;
@@ -17,6 +18,7 @@ import view.Visualisointi;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 import simu.framework.Kello;
 
@@ -181,7 +183,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	public void visualisoiAsiakas() {
 		Platform.runLater(new Runnable() {
 			public void run() {
-				ArrayList<Integer> jono = moottori.getJono();
+				ArrayList<LinkedList<Asiakas>> jono = moottori.getJononAsiakkaat();
 
 				naytto.uusiAsiakas(jono.get(0), jono.get(1), jono.get(2), jono.get(3), jono.get(4));
 			}

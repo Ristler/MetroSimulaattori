@@ -2,7 +2,11 @@ package view;
 
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
+import simu.model.Asiakas;
+
+import java.util.LinkedList;
 
 public class Visualisointi implements IVisualisointi{
 	private final GraphicsContext SAAPgc;
@@ -16,6 +20,13 @@ public class Visualisointi implements IVisualisointi{
 	private final Canvas LAITcanvas;
 	private final Canvas METROM1canvas;
 	private final Canvas METROM2canvas;
+
+	private final Image defaultImage = new Image("/Default.png");
+	private final Image waitingImage = new Image("/Waiting.png");
+	private final Image ticketm1Image = new Image("/TicketM1.png");
+	private final Image ticketm2Image = new Image("/TicketM2.png");
+	private final Image ticketm1kImage = new Image("/TicketM1K.png");
+	private final Image ticketm2kImage = new Image("/TicketM2K.png");
 
 	public Visualisointi(Canvas SAAPcanvas, Canvas LTcanvas, Canvas LAITcanvas, Canvas METROM1canvas, Canvas METROM2canvas) {
 		//super();
@@ -53,70 +64,106 @@ public class Visualisointi implements IVisualisointi{
 		METROM2gc.fillRect(0, 0, this.METROM1canvas.getWidth(), this.METROM1canvas.getHeight());
 	}
 
-	public void uusiAsiakas(int SAAPasiaakaat, int LTasiakkaat, int LAITasiakkaat, int METROM1asiakkaat, int METROM2asiakkaat) {
+	public void uusiAsiakas(LinkedList<Asiakas> SAAPasiakkaat, LinkedList<Asiakas> LTasiakkaat, LinkedList<Asiakas> LAITasiakkaat, LinkedList<Asiakas> METROM1asiakkaat, LinkedList<Asiakas> METROM2asiakkaat) {
 		tyhjennaNaytto();
 
 		//System.out.println("Visualisointi: uusiAsiakas");
 
+		double increment = 40;
+
 		double i = 0;
-		double j = 10;
+		double j = 0;
 
-		for (int x = 0; x < SAAPasiaakaat; x++) {
+		for (Asiakas asiakas : SAAPasiakkaat) {
 			//System.out.println("UusiAsiakas: SAAP");
-			SAAPgc.setFill(Color.RED);
-			SAAPgc.fillOval(i, j, 10, 10);
 
-			i = (i + 10) % this.SAAPcanvas.getWidth();
+			SAAPgc.drawImage(defaultImage, i, j, increment, increment);
+
+			i = (i + increment) % this.SAAPcanvas.getWidth();
 			//j = (j + 12) % this.canvas.getHeight();
-			if (i==0) j+=10;
+			if (i==0) j+=increment;
 		}
 
 		i = 0;
-		j = 10;
+		j = 0;
 
-		for (int x = 0; x < LTasiakkaat; x++) {
-			LTgc.setFill(Color.RED);
-			LTgc.fillOval(i, j, 10, 10);
+		for (Asiakas asiakas : LTasiakkaat) {
+			//System.out.println("UusiAsiakas: SAAP");
 
-			i = (i + 10) % this.LTcanvas.getWidth();
+			LTgc.drawImage(waitingImage, i, j, increment, increment);
+
+			i = (i + increment) % this.LTcanvas.getWidth();
 			//j = (j + 12) % this.canvas.getHeight();
-			if (i==0) j+=10;
+			if (i==0) j+=increment;
 		}
 
 		i = 0;
-		j = 10;
+		j = 0;
 
-		for (int x = 0; x < LAITasiakkaat; x++) {
-			LAITgc.setFill(Color.RED);
-			LAITgc.fillOval(i, j, 10, 10);
+		for (Asiakas asiakas : LAITasiakkaat) {
+			//System.out.println("UusiAsiakas: SAAP");
 
-			i = (i + 10) % this.LAITcanvas.getWidth();
+			if (asiakas.getLippu() == 2 && asiakas.getMetro() == 1) {
+				LAITgc.drawImage(ticketm1kImage, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 2 && asiakas.getMetro() == 2) {
+				LAITgc.drawImage(ticketm2kImage, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 1 && asiakas.getMetro() == 1) {
+				LAITgc.drawImage(ticketm1Image, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 1 && asiakas.getMetro() == 2) {
+				LAITgc.drawImage(ticketm2Image, i, j, increment, increment);
+			} else {
+				LAITgc.drawImage(defaultImage, i, j, increment, increment);
+			}
+
+			i = (i + increment) % this.LAITcanvas.getWidth();
 			//j = (j + 12) % this.canvas.getHeight();
-			if (i==0) j+=10;
+			if (i==0) j+=increment;
 		}
 
 		i = 0;
-		j = 10;
+		j = 0;
 
-		for (int x = 0; x < METROM1asiakkaat; x++) {
-			METROM1gc.setFill(Color.RED);
-			METROM1gc.fillOval(i, j, 10, 10);
+		for (Asiakas asiakas : METROM1asiakkaat) {
+			//System.out.println("UusiAsiakas: SAAP");
 
-			i = (i + 10) % this.METROM1canvas.getWidth();
+			if (asiakas.getLippu() == 2 && asiakas.getMetro() == 1) {
+				METROM1gc.drawImage(ticketm1kImage, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 2 && asiakas.getMetro() == 2) {
+				METROM1gc.drawImage(ticketm2kImage, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 1 && asiakas.getMetro() == 1) {
+				METROM1gc.drawImage(ticketm1Image, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 1 && asiakas.getMetro() == 2) {
+				METROM1gc.drawImage(ticketm2Image, i, j, increment, increment);
+			} else {
+				METROM1gc.drawImage(defaultImage, i, j, increment, increment);
+			}
+
+			i = (i + increment) % this.METROM1canvas.getWidth();
 			//j = (j + 12) % this.canvas.getHeight();
-			if (i==0) j+=10;
+			if (i==0) j+=increment;
 		}
 
 		i = 0;
-		j = 10;
+		j = 0;
 
-		for (int x = 0; x < METROM2asiakkaat; x++) {
-			METROM2gc.setFill(Color.RED);
-			METROM2gc.fillOval(i, j, 10, 10);
+		for (Asiakas asiakas : METROM2asiakkaat) {
+			//System.out.println("UusiAsiakas: SAAP");
 
-			i = (i + 10) % this.METROM2canvas.getWidth();
+			if (asiakas.getLippu() == 2 && asiakas.getMetro() == 1) {
+				METROM2gc.drawImage(ticketm1kImage, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 2 && asiakas.getMetro() == 2) {
+				METROM2gc.drawImage(ticketm2kImage, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 1 && asiakas.getMetro() == 1) {
+				METROM2gc.drawImage(ticketm1Image, i, j, increment, increment);
+			} else if (asiakas.getLippu() == 1 && asiakas.getMetro() == 2) {
+				METROM2gc.drawImage(ticketm2Image, i, j, increment, increment);
+			} else {
+				METROM2gc.drawImage(defaultImage, i, j, increment, increment);
+			}
+
+			i = (i + increment) % this.METROM2canvas.getWidth();
 			//j = (j + 12) % this.canvas.getHeight();
-			if (i==0) j+=10;
+			if (i==0) j+=increment;
 		}
 	}
 	

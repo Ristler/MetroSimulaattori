@@ -76,6 +76,10 @@ public class Palvelupiste {
 		return jono.size();
 	}
 
+	public LinkedList<Asiakas> getJono() {
+		return jono;
+	}
+
 	public boolean onVarattu(){
 		return varattu;
 	}

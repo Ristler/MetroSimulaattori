@@ -1,6 +1,5 @@
 package simu.model;
 
-import javafx.application.Platform;
 import simu.framework.*;
 import dao.MetroDao;
 import eduni.distributions.Negexp;
@@ -9,6 +8,7 @@ import controller.IKontrolleriForM;
 import view.SimulaattorinGUI;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class OmaMoottori extends Moottori {
 
@@ -241,13 +241,13 @@ public class OmaMoottori extends Moottori {
     }
 
     @Override
-    public ArrayList<Integer> getJono() {
-        return new ArrayList<Integer>() {{
-            add(palvelupisteet[0].jononKoko());
-            add(palvelupisteet[1].jononKoko());
-            add(palvelupisteet[2].jononKoko());
-            add(palvelupisteet[3].jononKoko());
-            add(palvelupisteet[4].jononKoko());
+    public ArrayList<LinkedList<Asiakas>> getJononAsiakkaat() {
+        return new ArrayList<LinkedList<Asiakas>>() {{
+            add(palvelupisteet[0].getJono());
+            add(palvelupisteet[1].getJono());
+            add(palvelupisteet[2].getJono());
+            add(palvelupisteet[3].getJono());
+            add(palvelupisteet[4].getJono());
         }};
     }
 }

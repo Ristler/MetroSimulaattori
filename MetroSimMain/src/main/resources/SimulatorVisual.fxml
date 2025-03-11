@@ -13,9 +13,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="799.0" prefWidth="1010.0" style="-fx-background-color: #e83925;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Kontrolleri">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="992.0" prefWidth="1254.0" style="-fx-background-color: #e83925;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Kontrolleri">
    <center>
-      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="1010.0" spacing="20.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
+      <HBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="1224.0" spacing="20.0" style="-fx-background-color: #f5f5f5;" BorderPane.alignment="CENTER">
          <padding>
             <Insets bottom="20.0" top="20.0" />
          </padding>
@@ -27,7 +27,7 @@
                         <Font name="Leelawadee Bold" size="19.0" />
                      </font>
                   </Label>
-                  <Canvas fx:id="SAAPlista" height="365.0" width="200.0" />
+                  <Canvas fx:id="SAAPlista" height="512.0" width="280.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="211.0" text="Keskimääräinen Palveluaika" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="14.0" />
@@ -47,7 +47,7 @@
                         <Font name="Leelawadee Bold" size="19.0" />
                      </font>
                   </Label>
-                  <Canvas fx:id="LTlista" height="382.0" width="200.0" />
+                  <Canvas fx:id="LTlista" height="512.0" width="280.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="211.0" text="Keskimääräinen Palveluaika" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="14.0" />
@@ -67,7 +67,7 @@
                         <Font name="Leelawadee Bold" size="19.0" />
                      </font>
                   </Label>
-                  <Canvas fx:id="LAITlista" height="382.0" width="200.0" />
+                  <Canvas fx:id="LAITlista" height="512.0" width="280.0" />
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="211.0" text="Keskimääräinen Palveluaika" textAlignment="CENTER">
                      <font>
                         <Font name="Leelawadee Bold" size="14.0" />
@@ -89,7 +89,7 @@
                               <Font name="Leelawadee Bold" size="19.0" />
                            </font>
                         </Label>
-                        <Canvas fx:id="METROM1lista" height="150.0" width="200.0" />
+                        <Canvas fx:id="METROM1lista" height="200.0" width="280.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="211.0" text="Keskimääräinen Palveluaika" textAlignment="CENTER">
                            <font>
                               <Font name="Leelawadee Bold" size="14.0" />
@@ -109,7 +109,7 @@
                               <Font name="Leelawadee Bold" size="19.0" />
                            </font>
                         </Label>
-                        <Canvas fx:id="METROM2lista" height="150.0" width="200.0" />
+                        <Canvas fx:id="METROM2lista" height="200.0" width="280.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="31.0" prefWidth="211.0" text="Keskimääräinen Palveluaika" textAlignment="CENTER">
                            <font>
                               <Font name="Leelawadee Bold" size="14.0" />

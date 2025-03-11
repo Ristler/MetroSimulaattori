@@ -1,6 +1,9 @@
 package simu.framework;
 
+import simu.model.Asiakas;
+
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public interface IMoottori { // UUSI
 		
@@ -10,5 +13,5 @@ public interface IMoottori { // UUSI
 	public void setViive(long aika);
 	public long getViive();
 
-    public ArrayList<Integer> getJono();
+	public ArrayList<LinkedList<Asiakas>> getJononAsiakkaat();
 }
