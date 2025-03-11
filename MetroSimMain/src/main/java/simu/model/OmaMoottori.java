@@ -62,12 +62,8 @@ public class OmaMoottori extends Moottori {
             case SAAP:
                 a = new Asiakas();
 
-                if (a.getLippu() == 1) {
-                    palvelupisteet[0].lisaaJonoon(a);
-                } else if (a.getLippu() == 2){
-                    palvelupisteet[2].lisaaJonoon(a);
-                }
-                
+                palvelupisteet[0].lisaaJonoon(a);
+
                 saapumisprosessi.generoiSeuraava();
                 kontrolleri.visualisoiAsiakas();
                 System.err.println("Asiakas " + a.getId() + " tila on M" + a.getMetro() + " ja lippu on " + a.getLippu());
@@ -79,11 +75,16 @@ public class OmaMoottori extends Moottori {
                 a = (Asiakas) palvelupisteet[0].otaJonosta(TapahtumanTyyppi.LT);
 
                 palveluKeskAika.setSaapumisPois(a.getId());
-                palveluKeskAika.setLippuSaap(a.getId());
 
-                palvelupisteet[1].lisaaJonoon(a);
+                if (a.getLippu() == 1) {
+                    palvelupisteet[1].lisaaJonoon(a);
+                    palveluKeskAika.setLippuSaap(a.getId());
+                } else if (a.getLippu() == 2){
+                    palvelupisteet[2].lisaaJonoon(a);
+                    palveluKeskAika.setLaituriSaap(a.getId());
+                }
+
                 break;
-
             case LAIT:
                 a = (Asiakas) palvelupisteet[1].otaJonosta(TapahtumanTyyppi.LAIT);
 
