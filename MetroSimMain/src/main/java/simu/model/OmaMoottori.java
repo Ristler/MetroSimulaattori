@@ -28,6 +28,8 @@ public class OmaMoottori extends Moottori {
 
     private double lastTime = 0;
 
+    private VuoroVali waitTime;
+
     public OmaMoottori(IKontrolleriForM kontrolleri) {
 
         super(kontrolleri);
@@ -36,6 +38,7 @@ public class OmaMoottori extends Moottori {
         palvelupisteet = new Palvelupiste[5];
         palveluKeskAika = new PalveluKeskAika();
         kello = Kello.getInstance();
+        waitTime = VuoroVali.getInstance();
         M1_turn = true;
         gui = new SimulaattorinGUI();
 
@@ -105,9 +108,9 @@ public class OmaMoottori extends Moottori {
                 System.err.println("Kello: " + kello.getAika());
 
                 double currentTime = kello.getAika();
-                double waitTime = 500;
+                //double waitTime = 500;
 
-                if (currentTime > (lastTime + waitTime)) {
+                if (currentTime > (lastTime + waitTime.getAika())) {
                             
                     if (M1_turn == true) {
                         int jononkoko;

@@ -7,6 +7,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Slider;
 import simu.framework.IMoottori;
 import simu.model.Asiakas;
 import simu.model.OmaMoottori;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import simu.framework.Kello;
+import simu.framework.VuoroVali;
 
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
@@ -63,10 +65,17 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	@FXML
 	private Label METROM2aika;// UUSI
 
+	@FXML
+	private Label vuorovaliLabel;
+
+	@FXML
+	private Slider vuorovaliSlider;
+
 	private IMoottori moottori;
 	private Kello kello;
 	private ISimulaattorinUI ui;
 	private PalveluKeskAika pka;
+	private VuoroVali vv;
 
 	private MetroDao metroDao;
 	private SimulaattorinGUI gui;
@@ -93,6 +102,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		kello = Kello.getInstance();
 		moottori.setViive(getViive());
 		pka = new PalveluKeskAika();
+		vv = VuoroVali.getInstance();
 		//ui.getVisualisointi().tyhjennaNaytto();
 		getVisualisointi(x);
 		((Thread) moottori).start();
@@ -108,6 +118,10 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	public void nopeuta() { // nopeutetaan moottorisäiettä
 		moottori.setViive((long) (moottori.getViive() * 0.9));
+	}
+
+	public void mvuorovali() {
+		vv.setAika(vuorovaliSlider.getValue());
 	}
 
 
@@ -154,6 +168,7 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	public void setAjat() {
 		DecimalFormat formatter = new DecimalFormat("#0.00");
 		Platform.runLater(() -> kokonaisaika.setText(formatter.format(kello.getAika())));
+		Platform.runLater(() -> vuorovaliLabel.setText(formatter.format(vv.getAika())));
 		Platform.runLater(() -> SAAPaika.setText(formatter.format(pka.getSaapKeskiaika())));
 		Platform.runLater(() -> LTaika.setText(formatter.format(pka.getLippuKeskiaika())));
 		Platform.runLater(() -> LAITaika.setText(formatter.format(pka.getLaituriKeskiaika())));
