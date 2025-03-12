@@ -29,8 +29,11 @@ public class SimulaattorinGUI extends Application {
         // Pass the UI reference
         //fxmlLoader.setController(controller);
         Parent root = fxmlLoader.load();
+        Scene scene = new Scene(root);
 
-        stage.setScene(new Scene(root));
+        scene.getStylesheets().add(getClass().getResource("/styles.css").toExternalForm());
+
+        stage.setScene(scene);
         stage.show();
     }
 
