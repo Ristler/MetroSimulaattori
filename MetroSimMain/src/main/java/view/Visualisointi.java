@@ -8,6 +8,11 @@ import simu.model.Asiakas;
 
 import java.util.LinkedList;
 
+/**
+ * Luokka toimii simulaattorin asiakas visualisointina.
+ * <p>
+ * Luokka hakee myös tarvittavat kuvat asiakkaiden visualisointiin
+ */
 public class Visualisointi implements IVisualisointi{
 	private final GraphicsContext SAAPgc;
 	private final GraphicsContext LTgc;
@@ -28,6 +33,18 @@ public class Visualisointi implements IVisualisointi{
 	private final Image ticketm1kImage = new Image("/TicketM1K.png");
 	private final Image ticketm2kImage = new Image("/TicketM2K.png");
 
+	/**
+	 * Visualisointi, yhteys otetaan heti simulaattorin alkaessa.
+	 * <p>
+	 * @param SAAPcanvas Palvelupisteen JavaFX Canvas elementti
+	 * @param LTcanvas Palvelupisteen JavaFX Canvas elementti
+	 * @param LAITcanvas Palvelupisteen JavaFX Canvas elementti
+	 * @param METROM1canvas Palvelupisteen JavaFX Canvas elementti
+	 * @param METROM2canvas Palvelupisteen JavaFX Canvas elementti
+	 * <p>
+	 * Alustusta varten, canvasit tyhjennetään
+	 */
+
 	public Visualisointi(Canvas SAAPcanvas, Canvas LTcanvas, Canvas LAITcanvas, Canvas METROM1canvas, Canvas METROM2canvas) {
 		//super();
 
@@ -45,8 +62,12 @@ public class Visualisointi implements IVisualisointi{
 
 		tyhjennaNaytto();
 	}
-	
 
+	/**
+	 * Canvas tyhjennys
+	 * <p>
+	 * Kaikki palvelupisteiden Canvas elementtit tyhjennetään. Kutsutaan simulaattorin alussa ja kun asiakkaat uudelleen visualisoidaan
+	 */
 	public void tyhjennaNaytto() {
 		//SAAPgc.setFill(Color.web("#d9e7ff"));
 		SAAPgc.clearRect(0, 0, this.SAAPcanvas.getWidth(), this.SAAPcanvas.getHeight());
@@ -64,6 +85,17 @@ public class Visualisointi implements IVisualisointi{
 		METROM2gc.clearRect(0, 0, this.METROM1canvas.getWidth(), this.METROM1canvas.getHeight());
 	}
 
+	/**
+	 * Asiakkaiden visualisointi
+	 * <p>
+	 * Kaikki palvelupisteiden Canvas elementtit täytetään asiakkailla. Riippuen asiaakaan palvelupisteestä ja tiedosta, kuva vaihtelee.
+	 * <p>
+	 * @param SAAPasiakkaat LinkedList, sisältää listan palvelupisteen asiakkaista.
+	 * @param LTasiakkaat LinkedList, sisältää listan palvelupisteen asiakkaista
+	 * @param LAITasiakkaat LinkedList, sisältää listan palvelupisteen asiakkaista
+	 * @param METROM1asiakkaat LinkedList, sisältää listan palvelupisteen asiakkaista
+	 * @param METROM2asiakkaat LinkedList, sisältää listan palvelupisteen asiakkaista
+	 */
 	public void uusiAsiakas(LinkedList<Asiakas> SAAPasiakkaat, LinkedList<Asiakas> LTasiakkaat, LinkedList<Asiakas> LAITasiakkaat, LinkedList<Asiakas> METROM1asiakkaat, LinkedList<Asiakas> METROM2asiakkaat) {
 		tyhjennaNaytto();
 

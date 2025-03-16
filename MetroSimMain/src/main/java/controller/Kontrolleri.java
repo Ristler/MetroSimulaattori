@@ -24,6 +24,11 @@ import java.util.LinkedList;
 import simu.framework.Kello;
 import simu.framework.VuoroVali;
 
+/**
+ * Luokka toimii simulaattorin kontrolli luokanana, eli visuaalisen ja model komponenttien välimiehenä.
+ * <p>
+ * Kontroller käsittelee myös FXML komponenttien toiminnan
+ */
 public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	@FXML
@@ -80,9 +85,6 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 	private MetroDao metroDao;
 	private SimulaattorinGUI gui;
 
-
-
-
 	private IVisualisointi naytto;
 	ISimulaattorinUI x;
 
@@ -90,7 +92,13 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 
 	}
 
-
+	/**
+	 * Käynnistää simulaattorin
+	 * <p>
+	 * Luo uuden moottorin, database dao:n ja  Simulaattori GUI:n
+	 * Asettaa simulaattori ajan ja viiveen
+	 * Aloittaa moottori threadin
+	 */
 	// Moottorin ohjausta:
 	public void kaynnistaSimulointi() {
 		moottori = new OmaMoottori(this); // luodaan uusi moottorisäie jokaista simulointia varten
@@ -109,32 +117,52 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		//((Thread)moottori).run(); // Ei missään tapauksessa näin. Miksi?		
 	}
 
-
-
+	/**
+	 * Hidastaa simulaattorin viiveen 10%
+	 */
 	public void hidasta() { // hidastetaan moottorisäiettä
 		moottori.setViive((long) (moottori.getViive() * 1.10));
 	}
 
-
+	/**
+	 * Nopeuttaa simulaattorin viiveen 10%
+	 */
 	public void nopeuta() { // nopeutetaan moottorisäiettä
 		moottori.setViive((long) (moottori.getViive() * 0.9));
 	}
 
+	/**
+	 * Asettaa metrojen vuorovälin FXML sliderin arvon perusteella
+	 */
 	public void mvuorovali() {
 		vv.setAika(vuorovaliSlider.getValue());
 	}
 
 
+	/**
+	 * Ajan otto
+	 * <p>
+	 * @return Palauttaa FXML tekstikentästä ajan
+	 */
 	public long getAika() {
 		return Long.parseLong(simaikafield.getText());
 	}
 
-
+	/**
+	 * Viiveen otto
+	 * <p>
+	 * @return Palauttaa FXML tekstikentästä viiveen
+	 */
 	public long getViive() {
 		return Long.parseLong(simviivefield.getText());
 	}
 
-
+	/**
+	 * Tiedonpalautus
+	 * <p>
+	 * Palauttaa simulaattorin lopussa dataa uuteen prompt ikkunaan
+	 * Dataan kuuluu palvelupisteiden keskimääräinen palveluaika, kuinka monta asiakasta on palveltu ja kuinka paljon lippuja oli myyty
+	 */
 	//Fetchaa dataa tietokannasta ja näyttää sen käyttöliittymässä simulaation päätyttyä.
 	public void getData() {
 
@@ -163,6 +191,11 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		});
 	}
 
+	/**
+	 * Ajastimien visualisointi
+	 * <p>
+	 * Visualisoi simulaattorin kaikki ajastimet, funktiota kutsutaan simuloinnin ajastimen kuluessa kokoajan
+	 */
 	// Visualisoi ajastimen ja palvelupisteiden keskimääräiset palveluajat
 	@Override
 	public void setAjat() {
@@ -176,21 +209,23 @@ public class Kontrolleri implements IKontrolleriForM, IKontrolleriForV {
 		Platform.runLater(() -> METROM2aika.setText(formatter.format(pka.getMetro2Keskiaika())));
 	}
 
+	/**
+	 * Visualisoinnin palaustus
+	 * <p>
+	 * @return Palauttaa simulaattori GUI:n
+	 */
 	public ISimulaattorinUI getVisualisointi(ISimulaattorinUI naytto) {
 		return naytto;
 	}
 
-
-
 	// Simulointitulosten välittämistä käyttöliittymään.
 	// Koska FX-ui:n päivitykset tulevat moottorisäikeestä, ne pitää ohjata JavaFX-säikeeseen:
 
-	@Override
-	public void naytaLoppuaika(double aika) {
-		//Platform.runLater(() -> ui.setLoppuaika(aika));
-	}
-
-
+	/**
+	 * Asiakkaiden Visualisointi
+	 * <p>
+	 * Visualisoi asiakkaa antamalla kaikkien palvelupisteiden jonot ja niiden asiakkaat, jotta asiakkaiden tietoja voidataan verrata
+	 */
 	@Override
 	public void visualisoiAsiakas() {
 		Platform.runLater(new Runnable() {

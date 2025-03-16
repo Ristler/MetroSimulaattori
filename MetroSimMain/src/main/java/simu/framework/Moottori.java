@@ -1,3 +1,9 @@
+/**
+ * Moottori-luokka on abstrakti luokka, joka toimii simulaation moottorina.
+ * Se perii Thread-luokan ja toteuttaa IMoottori-rajapinnan.
+ * Moottori vastaa tapahtumien suorittamisesta ja ajan päivittämisestä simulaation aikana.
+ */
+
 package simu.framework;
 
 
@@ -17,7 +23,11 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 	protected Tapahtumalista tapahtumalista;
 
 	protected IKontrolleriForM kontrolleri; // UUSI
-	
+
+	/**
+	 * Konstruktori, joka alustaa Moottorin ja tapahtumalistan.
+	 * @param kontrolleri Simulaation ohjaamiseen käytettävä kontrolleri.
+	 */
 
 	public Moottori(IKontrolleriForM kontrolleri){  // UUSITTU
 		
@@ -30,20 +40,39 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 		// Palvelupisteet luodaan simu.model-pakkauksessa Moottorin aliluokassa
 	}
 
+	/**
+	 * Asettaa simulaation kokonaiskeston.
+	 * @param aika Simulointiaika sekunteina.
+	 */
+
 	@Override
 	public void setSimulointiaika(double aika) {
 		simulointiaika = aika;
 	}
+
+	/**
+	 * Asettaa simulaation viiveen.
+	 * @param viive Viive millisekunteina.
+	 */
 	
 	@Override // UUSI
 	public void setViive(long viive) {
 		this.viive = viive;
 	}
+
+	/**
+	 * Palauttaa simulaation viiveen.
+	 * @return Viive millisekunteina.
+	 */
 	
 	@Override // UUSI 
 	public long getViive() {
 		return viive;
 	}
+
+	/**
+	 * Käynnistää simulaation suorittamalla tapahtumia, kunnes simulointiaika päättyy.
+	 */
 	
 	@Override
 	public void run(){ // Entinen aja()
@@ -58,6 +87,11 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 		tulokset();
 		
 	}
+
+
+	/**
+	 * Suorittaa tapahtumat, joiden tapahtuma-aika on sama kuin nykyinen kellonaika.
+	 */
 	
 	private void suoritaBTapahtumat(){
 		while (tapahtumalista.getSeuraavanAika() == kello.getAika()){
@@ -65,18 +99,31 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 		}
 	}
 
+
 	protected abstract void yritaCTapahtumat();
 
+	/**
+	 * Palauttaa seuraavan tapahtuman ajan.
+	 * @return Seuraavan tapahtuman aika.
+	 */
 	
 	private double nykyaika(){
 		return tapahtumalista.getSeuraavanAika();
 	}
+
+	/**
+	 * Tarkistaa, jatkuuko simulaatio edelleen.
+	 * @return true, jos simulaation aikaa on jäljellä, muuten false.
+	 */
 	
 	private boolean simuloidaan(){
 		Trace.out(Trace.Level.INFO, "Kello on: " + kello.getAika());
 		return kello.getAika() < simulointiaika;
 	}
-	
+
+	/**
+	 * Odottaa määritetyn viiveen ennen seuraavaa tapahtumaa.
+	 */
 			
 	private void viive() { // UUSI
 		Trace.out(Trace.Level.INFO, "Viive " + viive);
@@ -87,11 +134,29 @@ public abstract class Moottori extends Thread implements IMoottori{  // UUDET M�
 		}
 	}
 
+	/**
+	 * Alustaa simulaation. Toteutetaan Moottorin aliluokassa.
+	 */
+
 	protected abstract void alustukset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
-	
+
+	/**
+	 * Suorittaa yksittäisen tapahtuman. Toteutetaan Moottorin aliluokassa.
+	 * @param t Suoritettava tapahtuma.
+	 */
+
 	protected abstract void suoritaTapahtuma(Tapahtuma t);  // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
-	
+
+	/**
+	 * Tallentaa tai näyttää simulaation tulokset. Toteutetaan Moottorin aliluokassa.
+	 */
+
 	protected abstract void tulokset(); // Määritellään simu.model-pakkauksessa Moottorin aliluokassa
+
+	/**
+	 * Palauttaa listan asiakkaista, jotka ovat jonossa palvelupisteissä.
+	 * @return Lista palvelupisteiden jonoista ja niiden asiakkaista.
+	 */
 
     public abstract ArrayList<LinkedList<Asiakas>> getJononAsiakkaat();
 }

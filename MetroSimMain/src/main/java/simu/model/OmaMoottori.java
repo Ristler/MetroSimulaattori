@@ -10,6 +10,11 @@ import view.SimulaattorinGUI;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * OmaMoottori on ohjelman logiikka. OmaMoottorissa käsitellään tapahtumat, luodaan metromatkustajat
+ * ja vuorotellaan metrolinjojen saapuminen asemalle.
+ */
+
 public class OmaMoottori extends Moottori {
 
     private Saapumisprosessi saapumisprosessi;
@@ -51,14 +56,29 @@ public class OmaMoottori extends Moottori {
         saapumisprosessi = new Saapumisprosessi(new Negexp(20, 1), tapahtumalista, TapahtumanTyyppi.SAAP);
     }
 
-
+    /**
+     * Alustetaan uusi asiakas järjestelmään
+     */
     @Override
     protected void alustukset() {
         saapumisprosessi.generoiSeuraava(); // Ensimmäinen saapuminen järjestelmään
     }
 
+    /**
+     *
+     * @param t suorittaa B-vaiheen tapahtuman
+     */
+
     @Override
     protected void suoritaTapahtuma(Tapahtuma t) {  // B-vaiheen tapahtumat
+
+        /**
+         * @param TapahtumanTyyppi määrittelee metromatkustajalle tapahtuman. Saap on saapuminen metroasemalle,
+         * LT on lippuhallin lipunosto tapahtuma, LAIT on laituritason odotustapahtuma
+         * ja METROM1 sekä METROM2 ovat poistuminen asemalta. Nousu-tapahtumassa on metrolinjojen vuorottelu-logiikka.
+         * If-lausekkeet tarkistavat, milloin metro on ollut viimeksi laiturilla ja
+         * milloin seuraava voi saapua laiturille.
+         */
 
         Asiakas a;
         switch ((TapahtumanTyyppi) t.getTyyppi()) {
@@ -100,15 +120,14 @@ public class OmaMoottori extends Moottori {
             case NOUSU:
 
 
-                // Voisitteko jatkossa kommentoida näitä koodinpätkiä, jotta olisi helpompaa ymmärtää mitä koodi tekee?
-
-                // make an if statement that will check if kello.getAika() is around 500, with like a 10 second margin, keep the contents empty
+                 // make an if statement that will check if kello.getAika() is around 500,
+                 // with like a 10-second margin, keep the contents empty
 
 
                 System.err.println("Kello: " + kello.getAika());
 
                 double currentTime = kello.getAika();
-                //double waitTime = 500;
+
 
                 if (currentTime > (lastTime + waitTime.getAika())) {
                             
@@ -215,6 +234,13 @@ public class OmaMoottori extends Moottori {
             }
         }
     }
+
+    /**
+     * Tulokset() metodissa tulostetaan terminaaliin simuloinnin tapahtumat. Metodissa myös tallenetaan
+     * tiedot tietokantaan. Palvelupisteiden tiedot tallenetaan omiin tauluihin tietokannassa. Tauluihin
+     * tallenetaan kyseisen palvelupisteen keskimääräisen palveluajan, palveltujen asiakkaiden määrä
+     * sekä simuloinnin ajan
+     */
 
     @Override
     protected void tulokset() {

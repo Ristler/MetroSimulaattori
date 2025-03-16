@@ -15,12 +15,21 @@ import simu.framework.Trace;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-
+/**
+ * Luokka toimii simulaattorin visuaalisena komponenttina, kutsutaan Main luokasta ja alustaa kontrollerin ja visualisoi FXML tiedoston.
+ * <p>
+ * Luokka luo myös simulaattorin lopussa promptin simulaattorin loppu tiedoista
+ */
 public class SimulaattorinGUI extends Application {
     private IKontrolleriForV kontrolleri;
     private Visualisointi naytto;
     private Kontrolleri controller;
 
+    /**
+     * Aloitus.
+     * <p>
+     * Luo uuden kontrollerin ja visualisoi FXML tiedoston. Methodi myös lisää "styles" CSS tiedoston
+     */
     @Override
     public void start(Stage stage) throws Exception {
         controller = new Kontrolleri();
@@ -37,7 +46,18 @@ public class SimulaattorinGUI extends Application {
         stage.show();
     }
 
-
+    /**
+     * Prompt lopputuloksia varten.
+     * <p>
+     * Luo uuden alert ikkunan johon lisätään tarvittavat tiedot
+     * @param asiakkaitapalveltuMetroasema kuinka monta asiakasta on palveltu palvelupisteellä
+     * @param asiakkaitapalveltuLippuhalli kuinka monta asiakasta on palveltu palvelupisteellä
+     * @param asiakkaitapalveltuLaituri kuinka monta asiakasta on palveltu palvelupisteellä
+     * @param m1asiakkaat kuinka monta asiakasta on palveltu palvelupisteellä
+     * @param m2asiakkaat kuinka monta asiakasta on palveltu palvelupisteellä
+     * @param keskiarvo keskimääräinen palveluaika kaikkien palvelupisteiden läpikäytyä
+     * @param tulot kuinka paljon on tienattu lipuista joita myytiin
+     */
     //Prompt näkyy simuloinnin loputtua. Kesken.
     public void showData(int asiakkaitapalveltuMetroasema, int asiakkaitapalveltuLippuhalli, int asiakkaitapalveltuLaituri, int m1asiakkaat, int m2asiakkaat,  double keskiarvo, double tulot) {
 
@@ -63,13 +83,15 @@ public class SimulaattorinGUI extends Application {
         alert.showAndWait();
     }
 
-
-
     public void init() {
         Trace.setTraceLevel(Trace.Level.INFO);
     }
 
-    
+    /**
+     * Visualioinnin palautus
+     * <p>
+     * @return Palauttaa Simulaattori GUI:n
+     */
     public IVisualisointi getVisualisointi() {
             return naytto;
         }
